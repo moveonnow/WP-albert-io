@@ -1,0 +1,104 @@
+/*
+AudioJS VimCSS Skin (http://videojs.com)
+Version 2.0.0
+*/
+
+.vim-css .ajs-controls {
+  height: 60px; opacity: 0.9; color: #fff;
+}
+.vim-css .ajs-controls > div {
+  height: 28px; top: 18px; padding: 0; text-align: center; background: rgba(23, 35, 34, 0.746094);
+  -webkit-border-radius: 0; border-radius: 0;
+  -webkit-box-shadow: none; box-shadow: none;
+}
+/* Placement of Control Items */
+.vim-css .ajs-controls > div.ajs-play-control       { width: 65px; left: 10px; }
+.vim-css .ajs-controls > div.ajs-progress-control   { left: 85px; right: 125px; }
+.vim-css .ajs-controls > div.ajs-time-control       { width: 75px; right: 50px; }
+.vim-css .ajs-controls > div.ajs-volume-control     { width: 50px; right: 0px; }
+
+/* Play/Pause
+-------------------------------------------------------------------------------- */
+.vim-css .ajs-controls .ajs-play-control { top: 10px; margin: 0; height: 40px;  -webkit-border-radius: 5px; border-radius: 5px; }
+.vim-css .ajs-play-control:hover { background: #00ADEF; }
+.vim-css.ajs-paused .ajs-play-control span { border-left-color: #fff; border-top-width: 9px; border-left-width: 18px; border-bottom-width: 9px; margin: 11px 0 0 24px; }
+.vim-css.ajs-playing .ajs-play-control span { width: 5px; height: 18px; margin: 5px auto 0; border-left: 5px solid #fff; border-right: 5px solid #fff; margin: 11px 0 0 24px; }
+
+/* Progress
+-------------------------------------------------------------------------------- */
+.vim-css .ajs-controls .ajs-progress-control { -webkit-border-radius: 5px 0 0 5px; border-radius: 5px 0 0 5px; }
+.vim-css .ajs-progress-control .ajs-progress-holder { height: 8px; padding: 1px; margin: 10px 5px 0 10px; border-color: #666666; -webkit-border-radius: 0; border-radius: 0; }
+.vim-css .ajs-progress-control .ajs-play-progress { height: 8px; background: #00ADEF; -webkit-border-radius: 0; border-radius: 0; }
+.vim-css .ajs-progress-control .ajs-load-progress { height: 8px; background: #898F8F; -webkit-border-radius: 0; border-radius: 0; }
+
+/* Time Display
+-------------------------------------------------------------------------------- */
+.vim-css .ajs-controls .ajs-time-control { font-size: 11px; }
+.vim-css .ajs-controls .ajs-time-control span { line-height: 30px; /* Centering vertically */ }
+
+/* Volume
+-------------------------------------------------------------------------------- */
+.vim-css .ajs-controls .ajs-volume-control { -webkit-border-radius: 0 5px 5px 0; border-radius: 0 5px 5px 0; }
+.vim-css .ajs-volume-control div { padding: 7px 0 0 5px; width: 30px; }
+.vim-css .ajs-volume-control div span {
+  float: left; margin: 0 2px 0 0; padding: 0; width: 3px; height: 3px; border-bottom: 12px solid #666666;
+  -webkit-transition: all 100ms linear; -moz-transition: all 100ms linear;
+}
+.vim-css .ajs-volume-control div span.ajs-volume-level-on { border-color: #00ADEF; }
+.vim-css .ajs-volume-control div span:hover { height: 0; border-bottom-width: 15px; }
+
+/* Big Play Button (at start)
+---------------------------------------------------------*/
+.vim-css div.ajs-big-play-button {
+  width: 130px; height: 80px; margin: -40px 0 0 -65px;
+  border: none; opacity: 0.9;
+  -webkit-border-radius: 10px; border-radius: 10px;
+
+  background: rgba(23, 35, 34, 0.746094);
+
+  /* CSS Shadows */
+  -webkit-box-shadow: none; box-shadow: none;
+}
+.vim-css div.ajs-big-play-button:hover {
+  background: #00ADEF;
+  opacity: 1;
+}
+.vim-css div.ajs-big-play-button span {
+  margin: 22px 0 0 48px;
+  /* Drawing the play triangle with borders - http://www.infimum.dk/HTML/slantinfo.html */
+  border-left: 36px solid #fff; /* Width & Color of play icon */
+  /* Height of play icon is total top & bottom border widths. Color is transparent. */
+  border-top: 18px solid rgba(0,0,0,0); border-bottom: 18px solid rgba(0,0,0,0);
+}
+
+.vim-css.audio-js-box .ajs-controls {background: rgba(0,0,0,0.9);height: 110px;}
+.vim-css .ajs-controls > div.ajs-time-control {bottom: 10px;top: inherit;right: 45px;}
+.vim-css .ajs-controls > div.ajs-progress-control {left: 60px;right: 120px;bottom: 10px;top: inherit;border-radius: 0px;}
+.vim-css .ajs-volume-control div {width: 100%;margin-left: 0px;}
+.vim-css .ajs-controls > div.ajs-volume-control {    width: 50px;right: 0px;top: inherit;bottom: 10px;border-radius: 0px;padding-left: 5px;}
+.vim-css .ajs-controls > div.ow_msc_featureimage {float: left;/*height: inherit;*/position: inherit !important;top: 0 !important;/*padding: 10px 0px;*/}
+.vim-css .ajs-controls > div.description {width: auto;height: auto;position: inherit !important;top: 20px !important;display: initial;}
+.vim-css .ajs-controls > div.ajs-play-control {width: 50px;left: 6px;bottom: 10px;top: inherit;text-align: center;height: 33px;background: rgba(23, 35, 34, 0.746094);border-radius: 3px;}
+.vim-css.ajs-paused .ajs-play-control span {border-left-color: #fff;border-top-width: 6px;border-left-width: 10px;border-bottom-width: 6px;margin: auto;position: absolute;left: 4px;right: 0;top: 0;bottom: 0;}
+.vim-css.ajs-playing .ajs-play-control span {width: 14px;height: 14px;border-left: 5px solid #fff;border-right: 5px solid #fff;margin: auto;position: absolute;top: 0;bottom: 0;left: 0;right: 0;}
+.ow_vote_grid_single .vim-css .ajs-controls > div.ajs-play-control, .ow_vote_grid .vim-css .ajs-controls > div.ajs-play-control {left: 0;right: 0;margin-left: auto;margin-right: auto;}
+.ow_vote_grid .vim-css .description {display: none !important;}
+.vim-css .ajs-controls > div.ajs-play-control:hover {background: #1AB5F0;}
+
+.ow_vote_grid .vim-css .ajs-controls > div.ajs-time-control {top: inherit;right: inherit;left: 0;height: auto;bottom:0}
+.ow_vote_grid .vim-css .ajs-controls > div.ajs-progress-control {left: 75px;right: 0;bottom: 0;height: 30px;}
+.ow_vote_grid .vim-css .ajs-controls > div.ajs-play-control {margin: auto;top: 0;bottom: 0;}
+.ow_vote_grid .vim-css .ajs-controls > div.ajs-volume-control {width: 45px;right: 0px;top: 0;bottom: inherit;border-radius: 0px;padding-left: 5px;height: 25px;}
+
+.ow_vote_grid .vim-css .ajs-controls > div.ow_msc_featureimage {width: 100%;padding: 0px}
+.ow_vote_grid .ow_msc_featureimage img {max-width: 100% !important;width: auto !important;margin: auto;}
+
+.ow_vote_grid_single .vim-css .ajs-controls > div.ajs-time-control {top: inherit;right: inherit;left: 0;height: auto;bottom:0}
+.ow_vote_grid_single .vim-css .ajs-controls > div.ajs-progress-control {left: 75px;right: 0;bottom: 0;height: 30px;}
+.ow_vote_grid_single .vim-css .ajs-controls > div.ajs-play-control {margin: auto;top: 0;bottom: 0;}
+.ow_vote_grid_single .vim-css .ajs-controls > div.ajs-volume-control {width: 45px;right: 0px;top: 0;bottom: inherit;border-radius: 0px;padding-left: 5px;height: 25px;}
+
+.ow_vote_grid_single .vim-css .ajs-controls > div.ow_msc_featureimage {width: 100%;padding: 0px}
+.ow_vote_grid_single .ow_msc_featureimage img {margin: auto;}
+
+.ow_single_page_content .vim-css .ow_msc_featureimage{margin-top: 10px;}
