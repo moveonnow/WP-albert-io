@@ -6,14 +6,14 @@
  * 
  *
  * @link              aei874@mail.ru
- * @since             1.0.0
+ * @since             1.0.1
  * @package           Voting Contest Customizations
  *
  * @wordpress-plugin
  * Plugin Name:       Voting Contest Customizations
  * Plugin URI:        https://github.com/moveonnow/wp_voting_contest_customizations
  * Description:       Use to add an options page to the OW Voting Contest Plugin
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            Eduard Abdullin
  * Author URI:        aei874@mail.ru
  * Text Domain:       https://github.com/moveonnow/wp_voting_contest_customizations
