@@ -19,9 +19,7 @@ if(!function_exists('ow_taxonomy_vote_view')){
 			    );
     ?>
 	<table class="form-table">
-		
 	    <?php apply_filters('ow_category_settings_top',''); ?>
-		
 	     <tr valign="top">
 			<th scope="row"><label for="imgcontest"><?php _e('Type of Contest: ','voting-contest'); ?></label></th>
 			<td>
@@ -44,21 +42,6 @@ if(!function_exists('ow_taxonomy_vote_view')){
         </tr>
 	    
 	    <?php $check_contest = ($values['options']['imgcontest'] == 'video' || $values['options']['imgcontest'] == 'on' || $values['options']['imgcontest'] == 'music')?'on':''; ?>
-		
-		
-	<tr valign="top" class="show_music_man" id="<?php echo($values['options']['imgcontest'] == 'essay' || $values['options']['imgcontest'] == 'video' || $values['options']['imgcontest'] == 'music')?'edit_image_man':'';?>" style="<?php echo($values['options']['imgcontest'] != 'music')?'display:none;':'';?>">
-		<th scope="row"><label for="musicfileenable"><?php _e('Enable Music Upload: ','voting-contest'); ?></label></th>
-		<td>
-			<label class="switch switch-slide">
-				<input class="switch-input" type="checkbox" id="musicfileenable" name="musicfileenable" <?php checked('on', $values['options']['musicfileenable']); ?>/>
-				<span class="switch-label" data-on="Yes" data-off="No"></span>
-			</label>
-			
-			<span class="description"> <?php _e('Enable Music Upload In Submit Entry Form for Music Contest Category.','voting-contest'); ?></span>
-		</td>
-	</tr>
-	
-	
 		
 	<tr valign="top" class="show_image_man" id="<?php echo($values['options']['imgcontest'] == 'essay' || $values['options']['imgcontest'] == 'video' || $values['options']['imgcontest'] == 'music')?'edit_image_man':'';?>" style="<?php echo($values['options']['imgcontest'] == 'photo')?'display:none;':'';?>">
 		<th scope="row"><label for="imgenable"><?php _e('Upload Image: ','voting-contest'); ?></label></th>

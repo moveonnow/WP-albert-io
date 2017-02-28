@@ -41,13 +41,6 @@ jQuery(document).ready(function(){
 			}
 			jQuery('#imgdisplay').attr('disabled',false);
 		}*/
-        
-        if(jQuery(this).val() == 'music'){
-            jQuery('.show_music_man').show();
-        }
-        else{
-            jQuery('.show_music_man').hide();
-        }
 		
 		if(jQuery(this).val() == 'video' || jQuery(this).val() == 'music' || jQuery(this).val() == 'essay'){
 			jQuery('.show_image_man').show();

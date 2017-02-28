@@ -1,4 +1,4 @@
-jQuery(document).ready(function(){	
+jQuery(document).ready(function(){	  
 	
 	//Make the listing page title and right side content fix to the width
 	ow_votes_list_page_show_contest();
@@ -21,7 +21,8 @@ jQuery(document).ready(function(){
 	ow_pretty_photo_gallery();
 	//vote function
 	ow_vote_click_function();
-	
+	//rules
+	ow_rules_click_function();
 	//Load More functionality
 	ow_voting_load_more();
 	
@@ -31,7 +32,7 @@ jQuery(document).ready(function(){
 	//Single contestant page
 	ow_single_contestant_function();
 	ow_single_contestant_pretty();
-		
+	
 	
 	//Single page share url copy text function start
 	function copyToClipboard(elem) {
@@ -810,9 +811,21 @@ jQuery(document).ready(function(){
 		});
 	}
 	
+
+	//Rules click function
+	function ow_rules_click_function() {  
+		jQuery(document).on('click','.ow_vote_navmenu_link_rules', function(event){
+			event.preventDefault(); 
+			ow_vote_ppOpen('#ow_vote_rules', '300',1);
+
+
+		});
+	}
+
+
 	//Vote click function
-	function ow_vote_click_function() {
-		jQuery(document).on('click','a.ow_votebutton', function(){						
+	function ow_vote_click_function() { 
+		jQuery(document).on('click','a.ow_votebutton', function(){
 
 			var voter_submitter = jQuery('.voter_submitter').val();
 
@@ -1075,25 +1088,7 @@ jQuery(document).ready(function(){
 						}
 					}
 					
-				}
-				
-				
-				//Check Counter class exists and show the Total Votes count - Shortcode : owtotalvotes
-				var istotalcounter = document.getElementsByClassName('ow_total_counter');
-				if (istotalcounter.length > 0) {
-					//Get Total Votes						
-					jQuery.ajax({
-						url: vote_path_local.votesajaxurl,
-						data:{
-						 action:'owtotalvotes',			 
-						},
-						type: 'GET',
-						cache: false,														
-						success: function( result ) {
-							jQuery('.ow_total_counter').html(result);
-						}
-					});
-				}
+				}					
 				
 				jQuery('.ow_vote_fancybox_result').css("background","none");
 				jQuery('.ow_vote_fancybox_result_header').html(result.msg);
@@ -1446,25 +1441,28 @@ jQuery(document).ready(function(){
 				}
 			});		 
 			 
-		});
+		}); 
 		
 		
 		// EMAIL - Verification form
-		jQuery(document).on('submit','.zn_email_verification',function(event){
+		jQuery(document).on('submit','.zn_email_verification',function(event){ 
 			event.preventDefault();
-		
+	
 			var form = jQuery(this),
 				warning = false,
+				sendy_email = '',
+				warning_acceptance = false,
 				button = jQuery('.zn_sub_button',this),
-				values = form.serialize()+'&ajax_login=true&action=voting_email_verification';   
-               			
+				values = form.serialize()+'&ajax_login=true&action=voting_email_verification';
+
+           	
 			jQuery('input',form).each(function(){
 				if ( !jQuery(this).val() ) {
 					warning = true;
 				}
 			}); 
-			
-			if( warning ) {
+
+			if( warning ) { 
 			     jQuery(".error_empty").remove();
 			     if(jQuery( ".inner-container" ).hasClass( "login-panel" )){
 				jQuery( ".m_title" ).after( "<p class='error_empty'>Please Enter The Email. </p>" );
@@ -1473,6 +1471,56 @@ jQuery(document).ready(function(){
 				return false;
 			}
 			
+
+
+			/* mod_start */
+
+			if(!jQuery('input[name="acceptance_checkbox"]:checked').val()) { 
+				 
+				jQuery(".error_empty").remove();
+			    if(jQuery( ".inner-container" ).hasClass( "login-panel" )){
+					jQuery( ".m_title" ).after( "<p class='error_empty'>Please Accept</p>" );
+			    }
+				button.removeClass('zn_blocked');
+				return false;
+		
+			}
+
+
+ 			this.slist = '';
+ 			this.slist_warning = true; 
+ 			var self = this;
+
+			jQuery('.slist_checkbox',form).each(function(){
+				slist_name = jQuery(this).attr('id');
+				if (jQuery('input[name="'+slist_name+'"]:checked').val()) {
+					self.slist_warning = false;
+					self.slist += '&ajax_'+slist_name+'='+slist_name;
+				}
+			}); 
+
+			if (jQuery('input[name=slist_radio]:checked').val()){
+				slist_name = jQuery('input[name=slist_radio]:checked').val();
+				this.slist = self.slist += '&ajax_'+slist_name+'='+slist_name;
+				self.slist_warning = false;
+			}
+				
+			if( self.slist_warning ) { 
+			     jQuery(".error_empty").remove();
+			     if(jQuery( ".inner-container" ).hasClass( "login-panel" )){
+				jQuery( ".m_title" ).after( "<p class='error_empty'>Please choose your status. </p>" );
+			     }
+				button.removeClass('zn_blocked');
+				return false;
+			}
+
+
+			/* mod_end */
+
+
+
+
+
 			if( button.hasClass('zn_blocked')) {
 				return;
 			}
@@ -1481,15 +1529,20 @@ jQuery(document).ready(function(){
 			jQuery(".error_empty").remove();                        
 			jQuery.ajax({
 				url: vote_path_local.votesajaxurl,
-				data: values,
+				data: values+self.slist,
 				type: 'POST',
 				cache: false,
-				success: function (resp) {
+				success: function (resp) { 
 				    if(resp == 0){
 				        jQuery( ".m_title" ).after( "<p class='error_empty'>Please Enter The Valid Email. </p>" );
 					button.removeClass('zn_blocked');
 				    }
+				    else if(resp == 'captcha_fail'){
+				        jQuery( ".m_title" ).after( "<p class='error_empty'>Please Enter The Captcha. </p>" );
+					button.removeClass('zn_blocked');
+				    }
 				    else{
+
 					jQuery(".error_empty").remove();
 					jQuery(".ow_voting_verification_code_div").show();
 					jQuery(".ow_voting_verification").hide();
@@ -1545,6 +1598,29 @@ jQuery(document).ready(function(){
 					button.removeClass('zn_blocked');
 				    }
 				    else{
+				    
+
+				    	/*  mod_start  */
+
+						url = vote_path_local.votesajaxurl + "?action=add_to_sendy";
+						
+						jQuery.post(url, {name:'user', email:'aei874@mail.ru'},
+						  function(data) {
+						      if(data)
+						      {    		
+						      	alert(data);  		
+						      }
+						      else
+						      {
+						      	alert("Sorry, unable to subscribe. Please try again later!");
+						      }
+						  }
+						);
+
+						/*  mod_end  */
+
+
+
 					jQuery(".error_empty").remove();
 					jQuery.ow_vote_prettyPhoto.close();
 					vote_button_function(window.link_btn,"");
@@ -1556,7 +1632,10 @@ jQuery(document).ready(function(){
 					jQuery('div.links', form).html(errorThrown);
 
 				}
-			});		 
+			});
+
+
+				 
 			 
 		});
 		

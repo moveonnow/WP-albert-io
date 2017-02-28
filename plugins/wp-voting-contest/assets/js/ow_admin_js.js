@@ -470,10 +470,3 @@ jQuery.extend( jQuery.easing,
 		return jQuery.easing.easeOutBounce (x, t*2-d, 0, c, d) * .5 + c*.5 + b;
 	}
 });
-
-jQuery(document).ready(function($){
-    $("#mobile-toggle-menu").click(function(){
-        $(this).toggleClass( "show" );
-        $(".ow_settings_menu").toggleClass( "show" );
-    });
-});

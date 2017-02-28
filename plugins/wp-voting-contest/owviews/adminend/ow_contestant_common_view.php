@@ -25,8 +25,7 @@ if(!function_exists('ow_votes_admin_menu_custom')){
 	    <div id="wpbody">
 		<div class="wrap ow_tab_wrap">
 		    <div class="ow_vote_tabs ow_vote_tabs-style-bar">
-			<a id="mobile-contestant-menu"><?php _e('Contestant Menu'); ?><span class="wt-arrow"></span></a>
-			<nav class="ow_contestant_nav_menu">
+			<nav>
 			    <ul>
 				<li class="<?php echo ($active_tab1 == OW_VOTES_TYPE && $called_php_file=='edit.php')? 'tab-current' : ''; ?>">
 				    <a class="owvotingicon owicon-users" href="edit.php?post_type=contestants"><?php _e('Contestants','voting-contest'); ?></a>
@@ -70,12 +69,6 @@ if(!function_exists('ow_votes_admin_menu_custom')){
 		    var reference = jQuery('.vote_contest_contestants').parent().parent();
 		    reference.addClass('current');
 		    reference.parent().find('li:first').removeClass('current');
-			
-			$("#mobile-contestant-menu").click(function(){
-				$(this).toggleClass( "show" );
-				$(".ow_contestant_nav_menu").toggleClass( "show" );
-			});
-			
 		});
 	    </script>
 	<?php

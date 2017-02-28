@@ -107,7 +107,6 @@ if(!class_exists('Ow_Vote_Taxonomy_Controller')){
 	    
 	    if(isset($_POST['votes_category_settings'])){
 			$curterm = $ID;
-			$musicfileenable = isset($_POST['musicfileenable']) ? $_POST['musicfileenable'] : NULL;
 			$imgenable = isset($_POST['imgenable']) ? $_POST['imgenable'] : NULL;
 			$imgrequired = isset($_POST['imgrequired']) ? $_POST['imgrequired'] : NULL;
 			$imgdisplay = isset($_POST['imgdisplay']) ? $_POST['imgdisplay'] : NULL;
@@ -127,7 +126,6 @@ if(!class_exists('Ow_Vote_Taxonomy_Controller')){
 			$tax_hide_photos_live =  isset($_POST['tax_hide_photos_live']) ? $_POST['tax_hide_photos_live'] : NULL;
 	
 			$args = array(
-				'musicfileenable'=>$musicfileenable,
 				'imgenable'=>$imgenable,
 				'imgrequired'=>$imgrequired,
 				'imgdisplay' => $imgdisplay,

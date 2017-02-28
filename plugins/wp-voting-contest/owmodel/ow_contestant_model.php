@@ -97,13 +97,6 @@ if(!class_exists('Ow_Contestant_Model')){
 			$total   =  $wpdb->get_results($sql);
 			return $total;
 	    }
-		
-		 public static function ow_total_votes(){
-			global $wpdb;
-			$sql = "SELECT SUM(votes) as total FROM " . OW_VOTES_TBL ;
-			$total   =  $wpdb->get_row($sql);
-			return $total->total;
-	    }
 	    
 	    public static function ow_voting_log_entries($log_entries){		
 			global $wpdb;

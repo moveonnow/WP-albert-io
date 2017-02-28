@@ -27,16 +27,20 @@ if(!class_exists('Ow_Vote_Ajax_Controller')){
 			add_action('wp_ajax_voting_save_twemail_session', array($this,'ow_voting_save_twitter_in_session'));
 			
 			add_action('wp_ajax_nopriv_voting_email_verification', array($this,'ow_voting_voting_email_verification'));
-			add_action('wp_ajax_voting_email_verification', array($this,'ow_voting_voting_email_verification'));			
+			add_action('wp_ajax_voting_email_verification', array($this,'ow_voting_voting_email_verification'));
+			
 						
 			add_action('wp_ajax_nopriv_voting_email_code', array($this,'ow_voting_email_verification_code'));
-			add_action('wp_ajax_voting_email_code', array($this,'ow_voting_email_verification_code'));						
+			add_action('wp_ajax_voting_email_code', array($this,'ow_voting_email_verification_code'));
+						
 			
 			add_action('wp_ajax_nopriv_ow_voting_grab_email', array($this,'ow_voting_grab_email'));
-			add_action('wp_ajax_ow_voting_grab_email', array($this,'ow_voting_grab_email'));			
+			add_action('wp_ajax_ow_voting_grab_email', array($this,'ow_voting_grab_email'));
+			
 			
 			add_action('wp_ajax_nopriv_voting_load_more', array($this,'ow_voting_load_more'));
-			add_action('wp_ajax_voting_load_more', array($this,'ow_voting_load_more'));			
+			add_action('wp_ajax_voting_load_more', array($this,'ow_voting_load_more'));
+			
 			
 			add_action('wp_ajax_nopriv_voting_getterm', array($this,'ow_voting_getterm'));
 			add_action('wp_ajax_voting_getterm', array($this,'ow_voting_getterm'));
@@ -47,44 +51,14 @@ if(!class_exists('Ow_Vote_Ajax_Controller')){
 			add_action( 'wp_ajax_nopriv_ow_render_accordion', array($this,'ow_render_accordion_ajax') );			
 			
 			add_action( 'wp_ajax_ow_render_search',array($this,'ow_render_search_ajax')  );
-			add_action( 'wp_ajax_nopriv_ow_render_search', array($this,'ow_render_search_ajax') );			
-			
-			add_action( 'wp_ajax_owtotalvotes',array($this,'ow_voting_total_votes')  );
-			add_action( 'wp_ajax_nopriv_owtotalvotes', array($this,'ow_voting_total_votes') );			
-			
-			//Save the File URL using the Hidden - ow_save_file_url
-			add_action('wp_ajax_ow_save_file_url', array($this,'ow_save_file_url'));
-			add_action('wp_ajax_nopriv_ow_save_file_url', array($this,'ow_save_file_url'));
-			
-			add_action('wp_ajax_ow_file_ajax_function', array($this,'ow_load_Fileajax_Uploader'));
-			add_action('wp_ajax_nopriv_ow_file_ajax_function', array($this,'ow_load_Fileajax_Uploader'));
-			
-		}
-		
-		public function ow_save_file_url(){		
-			if($_POST['action'] == 'ow_save_file_url'){
-				$upload_path = wp_upload_dir();
-				
-				$post_id = wp_insert_post(array (
-							'post_type' => 'attachment',
-							'post_title' => $_POST['post_title'],						
-							'post_status' => 'inherit',
-							'comment_status' => 'closed',   
-							'ping_status' => 'closed',
-							'guid' => $_POST['guid'],
-							'post_mime_type' => $_POST['mime']
-						));
-				update_post_meta($post_id,'_wp_attached_file',$upload_path['subdir'].'/'.$_POST['post_title']);
-				
-				echo Ow_Vote_Common_Controller::ow_voting_encrypt($post_id);
-			}
-			exit;
-		}
-		
-		public function ow_load_Fileajax_Uploader(){		
-			require_once(OW_CONTROLLER_PATH.'ow_uploader.php');		
-			$upload_handler = new ow_UploadHandler();
-			die(); 		
+			add_action( 'wp_ajax_nopriv_ow_render_search', array($this,'ow_render_search_ajax') );
+
+			/*  mod_start  */
+
+			add_action( 'wp_ajax_add_to_sendy',array($this,'add_to_sendy_ajax')  );
+			add_action( 'wp_ajax_nopriv_add_to_sendy', array($this,'add_to_sendy_ajax') );
+
+			/*  mod_end  */
 		}
 				
 		public function ow_voting_save_twitter_in_session(){
@@ -100,6 +74,34 @@ if(!class_exists('Ow_Vote_Ajax_Controller')){
 		}
 		
 		public function ow_voting_voting_email_verification(){
+
+			/*  mod_start  */ 
+			
+			unset($_SESSION['slist']);
+			
+			$secret_key = '6Lf25hYUAAAAAFngEzG2VPIaN3gG48gnIlWjJqb0';
+
+			if(isset($_POST['g-recaptcha-response'])){
+		      	$captcha=$_POST['g-recaptcha-response'];
+		    }
+
+		    if(!$captcha){
+		      	echo 'captcha_fail';
+		      	exit();
+		    }
+
+			$ip = $_SERVER['REMOTE_ADDR'];
+		    $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secret_key."&response=".$captcha."&remoteip=".$ip);
+			$responseKeys = json_decode($response,true);
+		    
+		    if(intval($responseKeys["success"]) !== 1) { 
+		      	echo 'captcha_fail';
+		      	exit();
+		    } 
+
+
+			/*  mod_end  */
+
 			$email = sanitize_email( $_POST['ow_voting_email'] );
 			if(!is_email($email)){
 			   echo 0;
@@ -109,6 +111,29 @@ if(!class_exists('Ow_Vote_Ajax_Controller')){
 			   $_SESSION['votes_random_string'] = mt_rand(100000,999999);
 			   require_once(OW_CONTROLLER_PATH.'ow_vote_shortcode_controller.php');
 			   Ow_Vote_Shortcode_Controller::ow_votes_verification_mail_function($_SESSION['votes_random_string'],$email);
+
+			  
+			  	/*  mod_start  */
+
+			  	$acf_items = get_field('email_form_items', 'option');
+
+			    foreach ($_POST as $key => $value) {
+			   		
+			   		if (strpos($key, 'ajax_slist_') !== false) {
+ 
+				   		foreach ($acf_items as $acf_key => $acf_row) {
+							if (in_array(str_replace('slist_','', $value), $acf_row)) {
+								$_SESSION['slist'][str_replace('slist_','', $value)] = $acf_row['email_form_items_sendy_list_id'];
+							}
+						}
+
+			   		}
+
+			    }
+
+			  	/*  mod_end   */
+
+
 			   echo $_SESSION['votes_random_string'];
 			}
 			exit;
@@ -670,10 +695,55 @@ if(!class_exists('Ow_Vote_Ajax_Controller')){
 			exit();
 		}
 		
+		
+
+
+
+
+
+		/*  mod_start  */
+
+		public function add_to_sendy_ajax(){
+					
+			$sendy_url = 'http://emails.learnerator.com';
+			$name = 'Voting User';
+			$email = $_SESSION['votes_current_email'];
+
+			foreach ($_SESSION['slist'] as $key => $value) {
+
+				$list = $value;
+				$postdata = http_build_query(
+				    array(
+				    'name' => $name,
+				    'email' => $email,
+				    'list' => $list,
+				    'boolean' => 'true'
+				    )
+				);
+
+				$opts = array('http' => array('method'  => 'POST', 'header'  => 'Content-type: application/x-www-form-urlencoded', 'content' => $postdata));
+				$context  = stream_context_create($opts);
+				$result = file_get_contents($sendy_url.'/subscribe', false, $context);
+				
+				echo $result;
+
+	     	}
+
+	     	unset($_SESSION['slist']);
+
+			exit();
+
+		}
+
+		/*  mod_end   */
+
+
+
+
 		public function ow_votes_update_contestant_field($post_id,$system_name,$value){
 			
 			$custom_entries = Ow_Contestant_Model::ow_voting_get_all_custom_entries($post_id);
-			if(!empty($custom_entries)){ 
+			if(!empty($custom_entries)){
 				$field_values = $custom_entries[0]->field_values;
 				if(base64_decode($field_values, true))
 					$field_val = maybe_unserialize(base64_decode($field_values));  
@@ -690,7 +760,7 @@ if(!class_exists('Ow_Vote_Ajax_Controller')){
 					
 				}
 				
-				$val_serialized = base64_encode(maybe_serialize($posted_val)); 
+				$val_serialized = base64_encode(maybe_serialize($posted_val));
 				Ow_Contestant_Model::ow_voting_contestant_update_field($val_serialized,$post_id);
 			
 			}
@@ -698,13 +768,6 @@ if(!class_exists('Ow_Vote_Ajax_Controller')){
 			//Update in the Post meta table
 			update_post_meta($post_id,$system_name,$value);
 			
-		}
-		
-		
-		public static function ow_voting_total_votes(){			
-			$total_votes = Ow_Contestant_Model::ow_total_votes();
-			echo "<span class='ow_total_counter'>".$total_votes."</span>";
-			exit;
 		}
 		
     }

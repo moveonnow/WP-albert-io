@@ -45,7 +45,6 @@ if(!class_exists('Ow_Vote_Single_Contestants')){
 			global $wp_query;
 			if(isset($wp_query->query_vars['contestants'])){
 				if($wp_query->query_vars['contestants']!=''){
-					$_SESSION['votingoption'] = get_option(OW_VOTES_SETTINGS);
 					add_filter('the_content', array($this,'ow_votes_contestant_content_update')); 
 					add_filter('single_template', array($this,'ow_vote_contestant_body_content_class'));    
 				} 

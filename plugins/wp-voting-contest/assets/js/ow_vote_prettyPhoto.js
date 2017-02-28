@@ -374,6 +374,9 @@
 				};
 			});
 
+
+
+			
 			return false;
 		};
 
@@ -463,7 +466,25 @@
 		/**
 		* Closes ow_vote_prettyPhoto.
 		*/
-		$.ow_vote_prettyPhoto.close = function(){
+		$.ow_vote_prettyPhoto.close = function(){ 
+
+			/*  mod_start  */
+			
+			try {
+				var oldParent = document.getElementById('dynamic_capch');
+				var newParent = document.getElementById('capch');
+				while (oldParent.childNodes.length > 0) {
+				    newParent.appendChild(oldParent.childNodes[0]);
+				}
+			}
+
+			catch (err) {
+			
+			}
+
+			/* mod_end */
+
+
 			if($pp_overlay.is(":animated")) return;
 			
 			$.ow_vote_prettyPhoto.stopSlideshow();
@@ -542,6 +563,27 @@
 			});
 			
 			_insert_gallery();
+
+			/*  mod_start  */
+			
+			try {
+
+				var oldParent = document.getElementById('capch');
+				$('#pp_full_res').append('<div id="g-recaptcha"></div>');
+				$('#pp_full_res #new_capch').attr('id','dynamic_capch');
+				var newParent = document.getElementById('dynamic_capch');
+				while (oldParent.childNodes.length > 0) {
+				    newParent.appendChild(oldParent.childNodes[0]);
+				}
+
+			}
+
+			catch (err) {
+
+			}
+
+			/* mod_end */
+
 			pp_settings.ajaxcallback();
 		};
 		

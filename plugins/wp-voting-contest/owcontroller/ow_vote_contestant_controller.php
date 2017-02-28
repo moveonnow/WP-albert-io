@@ -207,7 +207,8 @@ if(!class_exists('Ow_Vote_Contestant_Controller')){
 						if(!empty($custom_field)){
 							$posted_val=array();
 							
-							foreach($custom_field as $custom_fields){								
+							foreach($custom_field as $custom_fields){
+								
 								
 								//Check the Custom Field File Types								
 								if($custom_fields->question_type == "FILE"){
@@ -276,12 +277,6 @@ if(!class_exists('Ow_Vote_Contestant_Controller')){
 							if (array_filter($posted_val)) {
 							  Ow_Contestant_Model::ow_voting_contestant_insert_field($val_serialized,$post_id);
 							}  
-						}
-						
-						
-						//Updating the Custom Fields While saving in admin end
-						if(isset($_POST['_ow_music_upload_url'])){
-							update_post_meta($post_id,'_ow_music_upload_url',$_POST['_ow_music_upload_url']);
 						}
 						
 						//skip auto save

@@ -427,7 +427,7 @@ if(!class_exists('Ow_Vote_Shortcode_Model')){
 				'orderby' => 'meta_value_num',
 				'order' => $order_settings            
 			);
-			$contest_post = new WP_Query($postargs);
+			$contest_post = new WP_Query($postargs);			
 			return $contest_post;
 		}
 		
@@ -598,7 +598,7 @@ if(!class_exists('Ow_Vote_Shortcode_Model')){
 					}
 					$ow_video_extension = get_option('_ow_video_extension');
 					if(!empty($custom_fields)){
-						$posted_val=array(); 
+						$posted_val=array();
 						foreach($custom_fields as $custom_field){
 								
 						   if($custom_field->system_name != 'contestant-desc'):
@@ -607,8 +607,7 @@ if(!class_exists('Ow_Vote_Shortcode_Model')){
 						   }
 						   
 						   
-						   
-						   if($custom_field->required=='Y' && $category_options['musicfileenable'] != 'on'){ 
+						   if($custom_field->required=='Y'){ 
 								if($_POST[$custom_field->system_name]==''){
 									
 									if($custom_field->system_name == 'contestant-ow_video_url'){
@@ -622,17 +621,14 @@ if(!class_exists('Ow_Vote_Shortcode_Model')){
 										     continue;
 										}
 										
-									}																	
+									}
 									
-									//Skip Validation for Upload Video Extension
+									//Skip Validation for Upload Video -- Extension
 									if($custom_field->system_name == 'contestant-ow_video_upload_url'){										
 										continue;								   
-									}
+									}								
 									
-									//Skip Validation for Upload Music 
-									if($custom_field->system_name == 'contestant-ow_music_url'){										
-										continue;								   
-									}
+									 
 									 
 								//Check the Custom Field File Types
 								if($custom_field->question_type == "FILE"){
@@ -685,7 +681,7 @@ if(!class_exists('Ow_Vote_Shortcode_Model')){
 						<div class="ow_contestants-errors">
 							<?php
 							foreach ($error->get_error_codes() as $errcode) {
-								echo '<div class="error-rows">'.$error->errors($errcode) . '</div>';
+								echo '<div class="error-rows">'.$error->get_error_message($errcode) . '</div>';
 							}
 							?>
 						</div>
@@ -789,8 +785,6 @@ if(!class_exists('Ow_Vote_Shortcode_Model')){
 						
 						$val_serialized = base64_encode(maybe_serialize($posted_val));						
 						Ow_Contestant_Model::ow_voting_insert_post_entry($post_id,$val_serialized);
-						do_action('ow_save_custom_fields',$post_id,$category_options);
-						
 						$attach_id = FALSE;
 						if($post_id && !is_wp_error( $post_id )) {
 							

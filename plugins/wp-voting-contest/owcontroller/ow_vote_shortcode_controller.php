@@ -16,7 +16,7 @@ if(!class_exists('Ow_Vote_Shortcode_Controller')){
 			add_shortcode('showallcontestants', array($this,'ow_votes_show_all_contestants'));
 			add_shortcode('owsearch', array($this,'ow_contestants_search'));
 			add_shortcode('addcontest', array($this,'ow_voting_nocategory_form'));	
-			add_shortcode('owtotalvotes', array($this,'ow_voting_total_votes'));	
+			
 			
 			unset($_SESSION['GET_VIEW_SHORTCODE']);
 	    }
@@ -267,6 +267,21 @@ if(!class_exists('Ow_Vote_Shortcode_Controller')){
 			echo '</div>';
 		}
 		
+
+		/* mod_start */
+
+		//Show Rules
+		public static function ow_votes_rules(){
+			require_once(OW_VIEW_FRONT_PATH.'ow_voting_email_form.php');
+			$votes_settings = get_option(OW_VOTES_SETTINGS);			
+			echo '<div class="hide">';
+			echo ow_voting_email_form($votes_settings);
+			echo '</div>';
+		}
+
+		/*  mod_end  */
+
+
 		//Grab Email Form on front end for IP and COOKIE
 		public static function ow_voting_email_grab(){
 			require_once(OW_VIEW_FRONT_PATH.'ow_voting_email_grab.php');
@@ -319,11 +334,6 @@ if(!class_exists('Ow_Vote_Shortcode_Controller')){
 				$headers[] = "Content-type: text/html";
 				wp_mail($senderemail, $subject,$message ,$headers);	
 			
-		}
-		
-		public static function ow_voting_total_votes(){			
-			$total_votes = Ow_Contestant_Model::ow_total_votes();
-			return "<span class='ow_total_counter'>".$total_votes."</span>";	
 		}
 
 		

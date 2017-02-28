@@ -28,7 +28,6 @@ if(!function_exists('ow_voting_shortcode_all_showcontest_view')){
 					$blocked_terms[]= $term->term_id;
 				}
 			}
-			//print_R($blocked_terms);
 			$contest_post = Ow_Vote_Shortcode_Model::ow_get_show_all_contest_query_sql($show_cont_args,$selected,$sort,$ajax,$blocked_terms,$ow_search);	
 		}
 		

@@ -35,17 +35,17 @@ if(!function_exists('ow_voting_add_custom_field_contestant')){
 							<?php
 							if($field_values->system_name == "contestant-title"){ ?>
 							<tr>
-								<td colspan="2"><?php _e('Title Notes: Vestibulum eget ipsum ut nisl viverra vulputate. Aenean non ullamcorper purus. Integer placerat est ut diam pulvinar, eu faucibus lectus faucibus. Aliquam ultrices ipsum ac ultricies euismod.','voting-contest'); ?></td>
+								<td colspan="2"><?php _e('Title Notes: This is not a custom question. This field generates the Title for the custom post type and is required by WordPress. You can rename the title label for your contest but you cannot remove this from the entry form.','voting-contest'); ?></td>
 							</tr>
 							<?php } ?>
 							<?php if($field_values->system_name == "contestant-ow_video_url"){ ?>
 							<tr>
-								<td colspan="2"><?php _e('Video Notes: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna tellus. Vivamus vel est sed ligula rhoncus lacinia eget vitae metus. Cras vel bibendum magna.','voting-contest'); ?></td>
+								<td colspan="2"><?php _e('Video Notes: This is not a custom question. This field is the URL field for Video Contests and will only be shown on the entry form for the Video Contest Category. It supports URLS from YouTube, Vimeo and Vine. You can rename the label of this field so it reads differently on your entry form but you cannot remove it from the Video Contest Category entry form.','voting-contest'); ?></td>
 							</tr>
 							<?php } ?>
 							<?php if($field_values->system_name == "contestant-desc"){ ?>
 							<tr>
-								<td colspan="2"><?php _e('Notes: Sed malesuada vestibulum aliquam. Quisque sed elit dignissim, rhoncus sem nec, lacinia tellus. Ut condimentum consectetur velit luctus feugiat. Donec risus ex, facilisis a urna vitae, porttitor laoreet ante.','voting-contest'); ?></td>
+								<td colspan="2"><?php _e('Description Notes: This is not a custom question. This generates the custom post description. It is optional. You can choose to display or hide this field from your entry form. You may rename the label so it reads differently on the contest entry form.','voting-contest'); ?></td>
 							</tr>
 							<?php } ?>
 							<tr>
@@ -61,9 +61,7 @@ if(!function_exists('ow_voting_add_custom_field_contestant')){
 								</td>
 							</tr>
 							
-							<?php if($field_values->system_name != "contestant-title" && $field_values->system_name != "contestant-ow_video_url" ): ?>
-							
-							<?php if($field_values->system_name != "contestant-ow_music_url") { ?>
+							<?php if($field_values->system_name != "contestant-title" && $field_values->system_name != "contestant-ow_video_url"): ?>
 							<tr>
 								<th id="custfield-type-select">
 									<label for="custfield_type"><?php _e('Type','voting-contest'); ?></label>
@@ -120,14 +118,6 @@ if(!function_exists('ow_voting_add_custom_field_contestant')){
 									</div>
 								</td>
 							</tr>
-							
-							<?php }
-							else{
-								echo '<input type="hidden" name="custfield_type" value="FILE" />';
-							}
-							?>
-							
-							
 							<?php if($field_values->question_type == 'FILE'): ?>
 							<tr class="add-extension-values">
 								<th>
@@ -159,7 +149,7 @@ if(!function_exists('ow_voting_add_custom_field_contestant')){
 							<input type="hidden" name="custfield_type" value="TEXT" />
 							<?php endif; ?>
 							
-							<?php if($field_values->system_name != "contestant-title" && $field_values->system_name != "contestant-ow_music_url"):
+							<?php if($field_values->system_name != "contestant-title"):
 							//&& $field_values->system_name != "contestant-ow_video_url"
 							?>
 							<tr>
@@ -181,7 +171,7 @@ if(!function_exists('ow_voting_add_custom_field_contestant')){
 							<input type="hidden" name="required" value="Y" />
 							<?php endif; ?>
 							
-							<?php if($field_values->system_name != "contestant-title" && $field_values->system_name != "contestant-ow_video_url" && $field_values->system_name != "contestant-ow_music_url"): ?>
+							<?php if($field_values->system_name != "contestant-title" && $field_values->system_name != "contestant-ow_video_url"): ?>
 							<tr>
 								<th>
 									<label class="inline" for="admin_only"><?php _e('Show in contestant form','voting-contest'); ?></label>
@@ -201,7 +191,7 @@ if(!function_exists('ow_voting_add_custom_field_contestant')){
 							<input type="hidden" name="admin_only" value="Y" />
 							<?php endif; ?>
 							
-							<?php if($field_values->system_name != "contestant-title" && $field_values->system_name != "contestant-ow_video_url" && $field_values->system_name != "contestant-ow_music_url"): ?>
+							<?php if($field_values->system_name != "contestant-title" && $field_values->system_name != "contestant-ow_video_url"): ?>
 							
 							<tr>
 								<th>
@@ -238,7 +228,7 @@ if(!function_exists('ow_voting_add_custom_field_contestant')){
 							<input type="hidden" name="grid_only" value="Y" />
 							<?php endif; ?>
 							
-							<?php if($field_values->system_name != "contestant-title" && $field_values->system_name != "contestant-ow_video_url" && $field_values->system_name != "contestant-ow_music_url"): ?>
+							<?php if($field_values->system_name != "contestant-title" && $field_values->system_name != "contestant-ow_video_url"): ?>
 							<tr>
 								<th>
 									<label class="inline" for="list_only"><?php _e('Show in List View','voting-contest'); ?></label>
@@ -258,7 +248,7 @@ if(!function_exists('ow_voting_add_custom_field_contestant')){
 							<input type="hidden" name="list_only" value="Y" />
 							<?php endif; ?>
                     
-							<?php if($field_values->system_name != "contestant-ow_video_url" && $field_values->system_name != "contestant-ow_music_url"): ?>
+							<?php if($field_values->system_name != "contestant-ow_video_url"): ?>
 							<tr>
 								<th>
 									<label class="inline" for="admin_view"><?php _e('Show in Contest description page','voting-contest'); ?></label>
@@ -288,7 +278,7 @@ if(!function_exists('ow_voting_add_custom_field_contestant')){
 									</div>
 								</td>
 							</tr>
-					 <?php else: ?>
+		    <?php else: ?>
 							<input type="hidden" name="admin_view" value="Y" />
                      <?php endif; ?>
 							<tr>

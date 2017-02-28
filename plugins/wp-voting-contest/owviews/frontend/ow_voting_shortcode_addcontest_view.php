@@ -9,9 +9,6 @@ if(!function_exists('ow_voting_shortcode_addcontestant_view')){
 			}
 		}
 		
-		//Music File Enable
-		$musicfileenable = $category_options['musicfileenable'];
-		
 		if(!empty($show_cont_args)){
 			foreach($show_cont_args as $args => $opt_glob){
 				$$args = $opt_glob;
@@ -257,30 +254,12 @@ if(!function_exists('ow_voting_shortcode_addcontestant_view')){
 									continue;
 								   }
 								   
-								}
-								
-								//Music File functionality contestant-ow_music_url								
-								if($custom_field->system_name == 'contestant-ow_music_url'){
-									
-								   if($musicfileenable == null){
-										continue;
-								   }
-								   //Show Music Upload for Music Contest Only 
-								   if($image_contest != 'music'){
-										continue;
-								   }
-								   
-								}					
+								}				
 								
 							    
 								if($custom_field->system_name == 'contestant-ow_video_url'){
 									
 									if($ow_video_extension != null && $image_contest != 'music'){
-										continue;
-									}
-									
-									//Music File functionality $musicfileenable
-									if($musicfileenable == "on" && $image_contest == 'music'){
 										continue;
 									}
 									
@@ -410,7 +389,7 @@ if(!function_exists('ow_voting_shortcode_addcontestant_view')){
 							<?php
 								}							
 								
-								apply_filters('ow_add_form_field',$custom_field->system_name,$image_contest,$id,$custom_field);								
+								apply_filters('ow_add_form_field',$custom_field->system_name,$image_contest,$id);								
 								
 							}
 							$field_count++;
@@ -463,7 +442,11 @@ if(!function_exists('ow_voting_shortcode_addcontestant_view')){
 		    
 			});
 			</script>
-				 
+			
+  
+
+
+
 			<div class="ow_add_contestants_row contestant_submit">
     				<div class="ow_contestants-label">
     					

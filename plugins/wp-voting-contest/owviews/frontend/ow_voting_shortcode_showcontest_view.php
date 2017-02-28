@@ -1,10 +1,16 @@
 <?php
-if(!function_exists('ow_voting_shortcode_showcontestant_view')){
+if(!function_exists('ow_voting_shortcode_showcontestant_view')){ 
     function ow_voting_shortcode_showcontestant_view($show_cont_args,$vote_opt,$category_options){
 		if(get_query_var('page') == 0){
 			$_SESSION['seed'] = "";
 		}
 		
+
+		?>
+
+
+		<?php
+
 		if($category_options['imgcontest']=='music'){
 			wp_register_style('ow_vote_css_media', OW_ASSETS_CSS_PATH.'ow_audio-js.css');
 			wp_enqueue_style('ow_vote_css_media');
@@ -18,12 +24,39 @@ if(!function_exists('ow_voting_shortcode_showcontestant_view')){
 			wp_register_style('ow_vote_css_media_vim', OW_ASSETS_CSS_PATH.'skins/ow_vim.css');
 			wp_enqueue_style('ow_vote_css_media_vim');
 		}
-			
+
+		/* Mod */
+
+			?>
+
+			<style type="text/css">
+
+				.cnt .fullWidth{
+					max-width: <?php the_field('contest_container_width', 'option') ?>px !important 
+				}
+
+				.cnt  .ow_vote_grid .ow_vote_img_style2 {
+					margin-left:0px !important;
+					width: <?php the_field('contest_contestant_width', 'option') ?>px !important;
+					height: <?php the_field('contest_contestant_height', 'option') ?>px !important;
+				}
+
+				.cnt .ow_vote_grid .ow_show_contestant{
+					width:<?php the_field('contest_contestant_width', 'option') ?>px !important;
+					height: <?php the_field('contest_contestant_height', 'option') ?>px !important;	
+				}
+
+			</style>
+
+			<?php
+		
+		/* end  */
+
 		$tax_hide_photos_live = $show_cont_args['tax_hide_photos_live'];	
 		$permalink = get_permalink( get_the_ID());
 
 		//AmyTheme Fix
-		if(get_current_theme() == "AMY Theme" || get_current_theme() == "Betheme Child" || get_current_theme() == "Betheme"){
+		if(get_current_theme() == "AMY Theme"){
 		    $_SESSION['GET_VIEW_SHORTCODE'] = 0;
 		}
 		
@@ -113,7 +146,31 @@ if(!function_exists('ow_voting_shortcode_showcontestant_view')){
 		    echo "<input type='hidden' class='vote_prettyphoto_disable' value='0' />";
 		}
 		?>
-			
+		
+
+		<?php /*  mod_start  */  ?>
+
+		<script src="https://www.google.com/recaptcha/api.js"></script>
+		
+		<div id="capch" class="hide">
+			<div id="capch_inner">
+				
+				<?php
+					$public_key = '6Lf25hYUAAAAAEpdC5xON4INOq5YgbFgcIrm4l6l';
+					$secret_key = '6Lf25hYUAAAAAFngEzG2VPIaN3gG48gnIlWjJqb0';
+				?>     
+				
+				<div class="g-recaptcha" data-sitekey="<?php echo $public_key; ?>"></div>
+
+			</div>    
+		</div>
+
+		<div id="ow_vote_rules" class="hide"> 
+			 <?php echo do_shortcode('[rulescontestants id='.$id.']'); ?>   
+		</div>	
+
+		<?php /*  mod_end  */ ?>
+
 		<div class="ow_vote_show_contestants">
 			<?php if($category_options['imgcontest']=='music'){ ?>
 			<style>
@@ -211,7 +268,7 @@ if(!function_exists('ow_voting_shortcode_showcontestant_view')){
 					<?php
 					
 					if($category_options['vote_contest_rules']!=''){ ?>
-						<li class="ow_vote_navmenu_link <?php echo ((isset($action_url) && $action_url=='contestrules') && $contest_id==$id)?'ow_active_contest_rules active':''; ?>">
+						<li id="vote_id_<?php echo $id; ?>" class="ow_vote_navmenu_link ow_vote_navmenu_link_rules <?php echo ((isset($action_url) && $action_url=='contestrules') && $contest_id==$id)?'ow_active_contest_rules active':''; ?>">
 							<a href="<?php echo $permalink.$url_prefix.'contest=contestrules&amp;contest_id='.base64_encode($id); ?>">
 								<span class="ow_vote_icons voteconestant-gift"></span><?php _e('Rules and Prizes','voting-contest'); ?>
 							</a>
@@ -310,7 +367,7 @@ if(!function_exists('ow_voting_shortcode_showcontestant_view')){
 		$title_rs = Ow_Vote_Shortcode_Model::ow_voting_get_contestant_title();
 		echo '<input type="hidden" id="contest_post_'.$id.'" value="'.$id.'" />';
 		$uploads = wp_upload_dir();
-		$export_path = $uploads['url'].'/final.zip';
+		$export_path = $uploads['url'].'/first_last.pdf';
 		echo '<input type="hidden" class="ow_upload_directory" value="'.$export_path.'" />';
 		if($contest_post){
 			if ($contest_post->have_posts()) {
@@ -426,7 +483,7 @@ if(!function_exists('ow_voting_shortcode_showcontestant_view')){
 									if(($vote_title_alocation!='on') || ($view=='list' || $view=='')){
 									?>
 									<div class="vote_left_side_content vote_left_sid<?php echo $id; ?>">
-										<a alt="<?php echo $ow_image_alt_text; ?>" class="ow_hover_image"  data-pretty-title="<?php echo $pretty_excerpt; ?>" href="<?php echo $ow_original_img; ?>" data-vote-id="<?php echo get_the_ID(); ?>" data-enc-id="<?php echo $enc_termid; ?>" data-enc-pid="<?php echo $enc_postid; ?>" data-term-id="<?php echo $id; ?>" data-vote-gallery="ow_vote_prettyPhoto[<?php echo $term->name; ?>]">
+										<a alt="<?php echo $ow_image_alt_text; ?>" class="ow_hover_image_disable"  data-pretty-title="<?php echo $pretty_excerpt; ?>" href="<?php echo $ow_original_img; ?>" data-vote-id="<?php echo get_the_ID(); ?>" data-enc-id="<?php echo $enc_termid; ?>" data-enc-pid="<?php echo $enc_postid; ?>" data-term-id="<?php echo $id; ?>" data-vote-gallery="ow_vote_prettyPhoto[<?php echo $term->name; ?>]">
 											<?php if($vote_prettyphoto_disable != 'on'): //PrettyPhoto Disable is on ?>
 											<div class="ow_overlay_bg ow_overlay_<?php echo get_the_ID(); ?>" style="<?php echo $style_image_overlay; ?>">
 												<span><i class="ow_vote_icons voteconestant-zoom"></i></span>
@@ -694,24 +751,70 @@ if(!function_exists('ow_voting_shortcode_showcontestant_view')){
 							<div class="ow_show_vote_cnt ow_pretty_content_social<?php echo get_the_ID(); ?>">
 								<div class="ow_show_share_icons_div ow_fancy_content_social<?php echo get_the_ID(); ?>">
 									<?php if($facebook!='off') { ?>
+
+										<?php
+
+											/* Facebook */
+
+											$share_facebook = get_field('share_facebook', 'option'); 
+											$share_facebook = str_replace('{url}', $perma_link, $share_facebook);
+											$share_facebook = str_replace('{title}', get_the_title(), $share_facebook);
+											$share_facebook = htmlentities($share_facebook);
+
+
+											/* Twitter */
+
+											$share_twitter = get_field('share_twitter', 'option'); 
+											$share_twitter = str_replace('{url}', $perma_link, $share_twitter);
+											$share_twitter = str_replace('{title}', get_the_title(), $share_twitter);
+											$share_twitter = htmlentities($share_twitter);
+
+
+											/* Pinterest */
+
+											$share_pinterest = get_field('share_pinterest', 'option'); 
+											$share_pinterest = str_replace('{url}', $perma_link, $share_pinterest);
+											$share_pinterest = str_replace('{title}', get_the_title(), $share_pinterest);
+											$share_pinterest = str_replace('{media}', $ow_image_src, $share_pinterest);
+											$share_pinterest = htmlentities($share_pinterest);
+
+
+											/* Tumblr */
+
+											$share_tumblr = get_field('share_tumblr', 'option'); 
+											$share_tumblr = str_replace('{url}', $perma_link, $share_tumblr);
+											$share_tumblr = str_replace('{title}', htmlentities(get_the_title(),ENT_QUOTES), $share_tumblr);
+											$share_tumblr = str_replace('{media}', $ow_image_src, $share_tumblr);
+											$share_tumblr = htmlentities($share_tumblr);
+
+
+											/* Google Plus */
+											
+											$share_plus = get_field('share_plus', 'option'); 
+											$share_plus = str_replace('{url}', $perma_link, $share_plus);
+											$share_plus = htmlentities($share_plus);
+
+
+
+										?>
 										<a class="ow_show_share_icons" title="<?php _e('Share on Facebook','voting-contest'); ?>" data-ref="&#xe027;" target="_blank" 
-										href="http://www.facebook.com/sharer.php?u=<?php echo $perma_link.'&amp;t='.htmlentities(get_the_title(),ENT_QUOTES); ?>">
+										href="http://www.facebook.com/sharer.php?<?php echo $share_facebook; ?>">
 										</a>
 									<?php }if($twitter!='off') { ?>
 										<a class="ow_show_share_icons" title="<?php _e('Share on Twitter','voting-contest'); ?>" data-ref="&#xe086;" target="_blank"
-										href="http://twitter.com/home?status=<?php echo htmlentities(get_the_title(),ENT_QUOTES).'%20'.$perma_link;?>">
+										href="http://twitter.com/home?<?php echo $share_twitter; ?>">
 										</a>
 									<?php }if($pinterest!='off') { ?>
 										<a class="ow_show_share_icons" title="<?php _e('Share on Pinterest','voting-contest'); ?>" data-ref="&#xe064;" target="_blank"
-										href="http://www.pinterest.com/pin/create/button/?url=<?php echo htmlentities($perma_link).'&amp;description='.htmlentities(get_the_title(),ENT_QUOTES).'&amp;media='.htmlentities($ow_image_src) ?>">
+										href="http://www.pinterest.com/pin/create/button/?<?php echo $share_pinterest; ?>">
 										</a>
 									<?php }if($tumblr!='off') {?>
 										<a class="ow_show_share_icons" title="<?php _e('Share on Tumblr','voting-contest'); ?>" data-ref="&#xe085;" target="_blank"
-										 href="http://www.tumblr.com/share/photo?source=<?php echo htmlentities($ow_image_src).'&amp;caption='.htmlentities(get_the_title(),ENT_QUOTES).'&amp;clickthru='.htmlentities($perma_link); ?>">
+										 href="http://www.tumblr.com/share/photo?<?php echo $share_tumblr; ?>">
 										</a>
 									<?php }if($gplus!='off') { ?>
 										<a class="ow_show_share_icons" title="<?php _e('Share on Google Plus','voting-contest'); ?>" data-ref="&#xe039;" target="_blank"
-										href="https://plus.google.com/share?url=<?php echo $perma_link; ?>">
+										href="https://plus.google.com/share?url=<?php echo $share_plus; ?>">
 										</a>
 									<?php } ?>
 								</div>
@@ -726,7 +829,7 @@ if(!function_exists('ow_voting_shortcode_showcontestant_view')){
 								$email_class= "";
 								
 								//Grab Email Address for IP and COOKIE
-								if($vote_grab_email_address == "on" && $vote_tracking_method != 'email_verify' && !is_user_logged_in()){
+								if($vote_grab_email_address == "on" && $vote_tracking_method != 'email_verify'){
 									Ow_Vote_Shortcode_Controller::ow_voting_email_grab();
 									$email_class = "ow_voting_grab"; 
 								}
@@ -916,3 +1019,7 @@ if(!function_exists('ow_title_show_category')){
 	}
 }
 ?>
+
+
+
+

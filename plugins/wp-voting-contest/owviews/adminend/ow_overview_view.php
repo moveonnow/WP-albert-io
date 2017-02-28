@@ -6,15 +6,12 @@
     <div class="wrap">
         <h2><?php __('Overview','voting-contest'); ?></h2>
         
-		<div class="narrow overview-page ow_voting_index" id="accordion">
-			<div class="version_block"><div class="version_info"><?php _e('Version','voting-contest'); ?> <?php echo OW_VOTE_VERSION; ?></div>
-				<a href="http://plugins.ohiowebtech.com/documentation/setup-contest-category/" target="_blank"><?php _e('Online Documentation','voting-contest'); ?></a>
-				<a href="http://demo.ohiowebtech.com/" target="_blank"><?php _e('Demo Contests','voting-contest'); ?></a>
-			</div>
-			<h3 class="info"><?php _e('Example of basic shortcode usage:','voting-contest'); ?> [showcontestants id=42] <br />(Note: You must replace the ID # with the ID # of the contest category you want to display.</h3>		
-			<h3 class="info"><?php _e('Example of all shortcode usage:','voting-contest'); ?><br />[showcontestants id=42 postperpage=20 thumb=1 height=200 width=200 title=Sample termdisplay=1 order=ASC orderby=date showtimer=1 showform=1 view=grid pagination=0]</h3>
+		<div class="narrow overview-page" id="accordion">
+			<h1><?php _e('Version','voting-contest'); ?> <?php echo OW_VOTE_VERSION; ?> |  <a href="http://plugins.ohiowebtech.com/documentation/setup-contest-category/" target="_blank"><?php _e('Online Documentation','voting-contest'); ?></a>  |  <a href="http://demo.ohiowebtech.com/" target="_blank"><?php _e('Demo Contests','voting-contest'); ?></a></h1>
+			<h3><?php _e('Example of basic shortcode usage:','voting-contest'); ?> [showcontestants id=42] <br />(Note: You must replace the ID # with the ID # of the contest category you want to display.</h3>		
+			<h3><?php _e('Example of all shortcode usage:','voting-contest'); ?><br />[showcontestants id=42 postperpage=20 thumb=1 height=200 width=200 title=Sample termdisplay=1 order=ASC orderby=date showtimer=1 showform=1 view=grid pagination=0]</h3>
 			<ul class="overview-listing">
-				<li ><b>showcontestants</b><p><i><?php _e('Attributes that can be passed to this shortcode are as follows:','voting-contest'); ?></i></p>
+				<li ><b><u>showcontestants</u></b><br/><p><i><?php _e('Attributes that can be passed to this shortcode are as follows:','voting-contest'); ?></i></p>
 					<ul>
 						<?php
 						echo html('li', '<u>id</u> &nbsp '.__('(IMPORTANT: You must enter the correct Contest Category ID in your shortcode for your contest to be displayed properly. The ID is listed on the Contest Category page.)','voting-contest'));
@@ -36,7 +33,7 @@
 					</ul>
 				</li>
 					
-				<li ><b><?php _e('Multiple Contestants In Single Page','voting-contest')?></b><br/><p><i><?php _e('Create a page and use showcontestant shortcode multiple times. It will list multiple contestants in a single page.','voting-contest'); ?></i></p>
+				<li ><b><u><?php _e('Multiple Contestants In Single Page','voting-contest')?></u></b><br/><p><i><?php _e('Create a page and use showcontestant shortcode multiple times. It will list multiple contestants in a single page.','voting-contest'); ?></i></p>
 					<ul>
 						<?php
 						echo html('li', '<u>Example</u> &nbsp (Note: [showcontestants id=3 showform=1][showcontestants id=2 showform=1] etc)');
@@ -46,7 +43,7 @@
 				</li>
 					
 					
-				<li><b>upcomingcontestants</b><p><i><?php _e('Attributes that can be passed to this shortcode are as follows:','voting-contest'); ?></i></p>
+				<li><b><u>upcomingcontestants</u></b><br/><p><i><?php _e('Attributes that can be passed to this shortcode are as follows:','voting-contest'); ?></i></p>
 					 <ul>
 						<?php
 						echo html('li', '<u>id</u> &nbsp '.__('(Note: To specify the Category of the post for which the Start timer get displayed.)','voting-contest'));
@@ -54,14 +51,14 @@
 						?>
 					</ul>
 				</li>
-				<li><b>endcontestants</b><p><i><?php _e('Attributes that can be passed to this shortcode are as follows:','voting-contest'); ?></i></p>
+				<li><b><u>endcontestants</u></b><br/><p><i><?php _e('Attributes that can be passed to this shortcode are as follows:','voting-contest'); ?></i></p>
 					 <ul>
 						<?php
 						echo html('li', '<u>id</u> &nbsp '.__('(Note: To specify the Category of the post for which the End timer get displayed.)','voting-contest'));
 						?>
 					</ul>
 				</li>
-				<li><b>addcontestants</b><p><i><?php _e('Attributes that can be passed to this shortcode are as follows:','voting-contest'); ?></i></p>
+				<li><b><u>addcontestants</u></b><br/><p><i><?php _e('Attributes that can be passed to this shortcode are as follows:','voting-contest'); ?></i></p>
 					 <ul>
 						<?php
 						echo html('li', '<u>id</u> &nbsp '.__('(Note: Specify the Contest Category which the contestants are added to.)','voting-contest'));
@@ -71,7 +68,7 @@
 						?>
 					</ul>
 				</li>
-				<li><b>profilescreen</b><p><i><?php _e('Attributes that can be passed to this shortcode are as follows:','voting-contest'); ?></i></p>
+				<li><b><u>profilescreen</u></b><br/><p><i><?php _e('Attributes that can be passed to this shortcode are as follows:','voting-contest'); ?></i></p>
 					 <ul>
 						<?php
 						echo html('li', '<u>contests</u> &nbsp '.__('(Note: To specify Whether the Contestants get displayed or not.)','voting-contest'));
@@ -81,7 +78,7 @@
 					</ul>
 				</li>
 				
-				<li ><b>showallcontestants</b><p><i><?php _e('Attributes that can be passed to this shortcode are as follows:','voting-contest'); ?></i></p>
+				<li ><b><u>showallcontestants</u></b><br/><p><i><?php _e('Attributes that can be passed to this shortcode are as follows:','voting-contest'); ?></i></p>
 					<ul>
 						<?php
 						echo html('li', '<u>orderby</u> &nbsp'.__('(Note: Specify how your contestants are ordered by, by adding orderby=votes to your shortcode. Options are listed <a href="http://plugins.ohiowebtech.com/documentation/shortcode-usage/" target="_blank">HERE</a> )','voting-contest'));
@@ -90,7 +87,7 @@
 						?>
 					</ul>
 				</li>
-				<li><b>addcontest</b><p><i><?php _e('Attributes that can be passed to this shortcode are as follows:','voting-contest'); ?></i></p>
+				<li><b><u>addcontest</u></b><br/><p><i><?php _e('Attributes that can be passed to this shortcode are as follows:','voting-contest'); ?></i></p>
 					 <ul>
 						<?php
 						echo html('li', __('(No Attributes available for this shortcode.)','voting-contest'));

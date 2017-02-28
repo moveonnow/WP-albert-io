@@ -187,7 +187,7 @@ if(!function_exists('ow_voting_shortcode_top_contestants_view')){
 									$shor_desc = $adv_excerpt->filter(get_the_excerpt());
 									$desc_len= strlen($shor_desc);
 									if($desc_len > 100){
-										$short_descrp = mb_substr($shor_desc,'0','75').'..';
+										$short_descrp = mb_substr($shor_desc,'0','200').'..';
 									}else{
 										$short_descrp = $shor_desc;
 									}

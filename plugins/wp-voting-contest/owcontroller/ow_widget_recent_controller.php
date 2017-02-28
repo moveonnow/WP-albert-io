@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 if(!class_exists('Ow_Widget_Recent_Controller')){
 	class Ow_Widget_Recent_Controller extends WP_Widget {
 	    
-	    function Ow_Widget_Recent_Controller() {			
+	    function __construct() {			
 			parent::__construct(
 				'voting_contest_recent', 
 				__('Recent Contestants', 'voting-contest'),

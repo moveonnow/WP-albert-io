@@ -22,7 +22,7 @@ if(!function_exists('ow_vote_contestant_custom_field_list_view')){
 
 	<div class="wrap">
 	    
-	    <h2><?php echo _e('Manage Contestant Custom Fields','voting-contest') ?>
+	    <h2><?php echo _e('Manage Contestant Form Fields','voting-contest') ?>
 	    <?php
 	    if (!isset($_REQUEST['vote_action']) || ($_REQUEST['vote_action'] != 'edit_question' && $_REQUEST['vote_action'] != 'new_question')) {
 		echo '<a href="admin.php?page=fieldcontestant&vote_action=new_customfield" class="button add-new-h2 new_contestant_add">' . __('Add New Field','voting-contest') . '</a>';
@@ -91,17 +91,16 @@ if(!function_exists('ow_vote_contestant_custom_field_list_view')){
 				    
 					<td class="checkboxcol">
 					    <input name="row_id" type="hidden" value="<?php echo $custfield_id ?>" />
-					     <?php if($system_name != "contestant-desc" && $system_name != "contestant-title" && $system_name != "contestant-ow_video_url" && $system_name != "contestant-ow_music_url"): ?>
-						 <input name="checkbox[<?php echo $custfield_id ?>]" type="checkbox" class="question_checkbox"  title="Delete <?php echo $custfield_name ?>" />
+					     <?php if($system_name != "contestant-desc" && $system_name != "contestant-title" && $system_name != "contestant-ow_video_url"): ?>      			  		 <input name="checkbox[<?php echo $custfield_id ?>]" type="checkbox" class="question_checkbox"  title="Delete <?php echo $custfield_name ?>" />
 					     <?php endif; ?>
 					</td>
 					
 					<td class="post-title page-title column-title">
 					    <strong><a href="admin.php?page=fieldcontestant&amp;vote_action=edit_fields&amp;field_id=<?php echo $custfield_id ?>"><?php echo $custfield_name ?></a></strong>
 						<div class="row-actions">
-						    <?php $separator_ed = ($system_name != "contestant-desc" && $system_name != "contestant-title" && $system_name != "contestant-ow_video_url" && $system_name != "contestant-ow_music_url")?"|":""; ?>
+						    <?php $separator_ed = ($system_name != "contestant-desc" && $system_name != "contestant-title" && $system_name != "contestant-ow_video_url")?"|":""; ?>
 							<span class="edit"><a href="admin.php?page=fieldcontestant&amp;vote_action=edit_fields&amp;field_id=<?php echo $custfield_id ?>"><?php _e('Edit','voting-contest'); ?></a> <?php echo $separator_ed ?> </span>
-						    <?php if($system_name != "contestant-desc" && $system_name != "contestant-title" && $system_name != "contestant-ow_video_url" && $system_name != "contestant-ow_music_url"): ?>
+						    <?php if($system_name != "contestant-desc" && $system_name != "contestant-title" && $system_name != "contestant-ow_video_url"): ?>
 							<span class="delete"><a onclick="return confirmDelete('single');" class="submitdelete"  href="admin.php?page=fieldcontestant&amp;vote_action=delete_fields&amp;field_id=<?php echo $custfield_id ?>"><?php _e('Delete','voting-contest'); ?></a></span>
 						    <?php endif; ?>
 						</div>

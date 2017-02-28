@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 if(!class_exists('Ow_Vote_Custom_Field_Controller')){
     class Ow_Vote_Custom_Field_Controller{
-			
+	
 		//Contestant custom fields metabox
 		public static function ow_votes_contestant_custom_field_meta_box()
 		{

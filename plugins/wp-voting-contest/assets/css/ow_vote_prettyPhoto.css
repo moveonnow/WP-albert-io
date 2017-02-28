@@ -312,7 +312,7 @@ div.links {padding-top: 12px;margin-bottom: -8px;clear:both;color: #4A4A4A;font-
 .ow_tab_buttons a.active, .ow_tab_buttons a:hover, .ow_tab_buttons a:focus {background: #EDEDED;color: #FF8901;}
 
 /*************** Pretty photo **********/
-.pp_social .ow_show_share_icons_div{background-color: #ddd;float: right;line-height: 30px;border-radius: 2px;margin-right: 10px;}
+.pp_social .ow_show_share_icons_div{background-color: #ddd;float: right;margin-right: 10px;line-height:24px;padding:5px;}
 .pp_social .ow_show_share_icons_div .ow_show_share_icons{float: left;}
 .pp_social .ow_show_vote_square{ background: none repeat scroll 0 0 #305891;border-radius: 0px;color: #fff;float: left;margin-right: 9px;padding: 5px;font-size: 14px;}
 .pp_social .ow_show_vote_button{background: none repeat scroll 0 0 #f26e2a;color: #fff;float: left;margin-right: 10px;text-align: center;border-radius: 0px;font-size: 14px;}

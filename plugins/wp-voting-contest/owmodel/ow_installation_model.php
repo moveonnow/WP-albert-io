@@ -19,12 +19,8 @@ if(!class_exists('Ow_Installation_Model')){
 									`question_type` enum('TEXT','TEXTAREA','MULTIPLE','SINGLE','DROPDOWN') NOT NULL DEFAULT 'TEXT',
 									`question` text NOT NULL,`system_name` varchar(45) DEFAULT NULL,`response` text,
 									`required` enum('Y','N') NOT NULL DEFAULT 'N',`required_text` text,
-									`show_labels` enum('Y','N') NOT NULL DEFAULT 'N',					
-									`ow_file_size` int(11) NOT NULL default '0',									
-									`admin_only` enum('Y','N') NOT NULL DEFAULT 'N',
-									`grid_only` enum('Y','N') NOT NULL DEFAULT 'N',
-									`list_only` enum('Y','N') NOT NULL DEFAULT 'N',
-									`delete_time` varchar(45) DEFAULT 0,
+									`show_labels` enum('Y','N') NOT NULL DEFAULT 'N',
+									`admin_only` enum('Y','N') NOT NULL DEFAULT 'N',`grid_only` enum('Y','N') NOT NULL DEFAULT 'N',`list_only` enum('Y','N') NOT NULL DEFAULT 'N',`delete_time` varchar(45) DEFAULT 0,
 									`wp_user` int(22) DEFAULT '1', `admin_view` VARCHAR(5) NOT NULL DEFAULT 'N',`pretty_view` enum('Y','N') NOT NULL DEFAULT 'N', PRIMARY KEY (`id`),
 									KEY `wp_user` (`wp_user`),KEY `system_name` (`system_name`),KEY `admin_only` (`admin_only`)
 								)ENGINE=InnoDB"; 
@@ -73,78 +69,54 @@ if(!class_exists('Ow_Installation_Model')){
 		$wpdb->query($post_track);
 		
 		$result = mysqli_query("SHOW COLUMNS FROM `".OW_VOTES_POST_ENTRY_TRACK."` LIKE 'ow_term_id'");
-		
-		if(empty($result)){
-			$exists = (mysqli_num_rows($result))?TRUE:FALSE;			
-			if(!$exists) {
-			   $post_track_alter = "ALTER TABLE ".OW_VOTES_POST_ENTRY_TRACK." ADD `ow_term_id` int(11) NOT NULL default '0'";
-			   $wpdb->query($post_track_alter);
-			}
+		$exists = (mysqli_num_rows($result))?TRUE:FALSE;
+		if(!$exists) {
+		   $post_track_alter = "ALTER TABLE ".OW_VOTES_POST_ENTRY_TRACK." ADD `ow_term_id` int(11) NOT NULL default '0'";
+		   $wpdb->query($post_track_alter);
 		}
-		
-					
+						
 		$result = mysqli_query("SHOW COLUMNS FROM `".OW_VOTES_TBL."` LIKE 'ip_always'");
-		
-		if(empty($result)){
-			$exists = (mysqli_num_rows($result))?TRUE:FALSE;
-			if(!$exists) {
-			   $post_track_alter = "ALTER TABLE ".OW_VOTES_TBL." ADD `ip_always` varchar(255) NOT NULL default '0'";
-			   $wpdb->query($post_track_alter);
-			}
+		$exists = (mysqli_num_rows($result))?TRUE:FALSE;
+		if(!$exists) {
+		   $post_track_alter = "ALTER TABLE ".OW_VOTES_TBL." ADD `ip_always` varchar(255) NOT NULL default '0'";
+		   $wpdb->query($post_track_alter);
 		}
 		
 		$result = mysqli_query("SHOW COLUMNS FROM `".OW_VOTES_TBL."` LIKE 'email_always'");
-		
-		if(empty($result)){
-			$exists = (mysqli_num_rows($result))?TRUE:FALSE;
-			if(!$exists) {
-			   $post_track_alter = "ALTER TABLE ".OW_VOTES_TBL." ADD `email_always` varchar(255) NOT NULL default '0'";
-			   $wpdb->query($post_track_alter);
-			}
+		$exists = (mysqli_num_rows($result))?TRUE:FALSE;
+		if(!$exists) {
+		   $post_track_alter = "ALTER TABLE ".OW_VOTES_TBL." ADD `email_always` varchar(255) NOT NULL default '0'";
+		   $wpdb->query($post_track_alter);
 		}
 		
 		//Add ow_file_size coumn in votes_custom_field_contestant table
 		$result = mysqli_query("SHOW COLUMNS FROM `".OW_VOTES_ENTRY_CUSTOM_TABLE."` LIKE 'ow_file_size'");
-		
-		if(empty($result)){
-			$exists = (mysqli_num_rows($result))?TRUE:FALSE;
-			if(!$exists) {
-			   $post_track_alter = "ALTER TABLE ".OW_VOTES_ENTRY_CUSTOM_TABLE." ADD `ow_file_size` int(11) NOT NULL default '0'";
-			   $wpdb->query($post_track_alter);
-			}
+		$exists = (mysqli_num_rows($result))?TRUE:FALSE;
+		if(!$exists) {
+		   $post_track_alter = "ALTER TABLE ".OW_VOTES_ENTRY_CUSTOM_TABLE." ADD `ow_file_size` int(11) NOT NULL default '0'";
+		   $wpdb->query($post_track_alter);
 		}
 						
 		$result1 = mysqli_query("SHOW COLUMNS FROM ".OW_VOTES_ENTRY_CUSTOM_TABLE." LIKE 'grid_only'");
-		
-		if(empty($result1)){
-			$exists1 = (mysqli_num_rows($result1))?TRUE:FALSE;
-			if(!$exists1) {
-			  $grid_only_alter = "ALTER TABLE ".OW_VOTES_ENTRY_CUSTOM_TABLE." ADD `grid_only` enum('Y','N') NOT NULL DEFAULT 'N'";
-			  $wpdb->query($grid_only_alter);
-			}
+		$exists1 = (mysqli_num_rows($result1))?TRUE:FALSE;
+		if(!$exists1) {
+		  $grid_only_alter = "ALTER TABLE ".OW_VOTES_ENTRY_CUSTOM_TABLE." ADD `grid_only` enum('Y','N') NOT NULL DEFAULT 'N'";
+		  $wpdb->query($grid_only_alter);
 		}
 		
 		$result2 = mysqli_query("SHOW COLUMNS FROM ".OW_VOTES_ENTRY_CUSTOM_TABLE." LIKE 'list_only'");
-		
-		if(empty($result2)){
-			$exists2 = (mysqli_num_rows($result2))?TRUE:FALSE;
-			if(!$exists2) {
-			   $list_only_alter = "ALTER TABLE ".OW_VOTES_ENTRY_CUSTOM_TABLE." ADD `list_only` enum('Y','N') NOT NULL DEFAULT 'N'";
-			   $wpdb->query($list_only_alter);
-			}
+		$exists2 = (mysqli_num_rows($result2))?TRUE:FALSE;
+		if(!$exists2) {
+		   $list_only_alter = "ALTER TABLE ".OW_VOTES_ENTRY_CUSTOM_TABLE." ADD `list_only` enum('Y','N') NOT NULL DEFAULT 'N'";
+		   $wpdb->query($list_only_alter);
 		}
 		
 		$result1 = mysqli_query("SHOW COLUMNS FROM ".OW_VOTES_ENTRY_CUSTOM_TABLE." LIKE 'show_labels'");
-		
-		if(empty($result1)){
-			$exists1 = (mysqli_num_rows($result1))?TRUE:FALSE;
-			if(!$exists1) {
-			  $grid_only_alter = "ALTER TABLE ".OW_VOTES_ENTRY_CUSTOM_TABLE." ADD `show_labels` enum('Y','N') NOT NULL DEFAULT 'N'";
-			  $wpdb->query($grid_only_alter);
-			}
+		$exists1 = (mysqli_num_rows($result1))?TRUE:FALSE;
+		if(!$exists1) {
+		  $grid_only_alter = "ALTER TABLE ".OW_VOTES_ENTRY_CUSTOM_TABLE." ADD `show_labels` enum('Y','N') NOT NULL DEFAULT 'N'";
+		  $wpdb->query($grid_only_alter);
 		}
-		
-		
 			
 		//File Type Length Add in ENUM
 		$question_type = "ALTER TABLE ".OW_VOTES_ENTRY_CUSTOM_TABLE." CHANGE `question_type` `question_type`
@@ -163,7 +135,6 @@ if(!class_exists('Ow_Installation_Model')){
 		$field_desc_check = Ow_Installation_Model::ow_voting_get_contestant_desc();
 		$field_title_check = Ow_Installation_Model::ow_voting_get_title_desc();
 		$field_video_check = Ow_Installation_Model::ow_voting_get_ow_video_url();
-		$field_music_check = Ow_Installation_Model::ow_voting_get_ow_music_url();
 		if(count($field_desc_check[0]) == 0){
 			//Add the Custom Field in the Table VOTES_ENTRY_CUSTOM_TABLE
 			$wpdb->insert( 
@@ -218,26 +189,7 @@ if(!class_exists('Ow_Installation_Model')){
 					'%s','%s','%s','%s' ,'%s','%s'
 				) 
 			);
-		}
-		
-		if(count($field_music_check[0]) == 0){
-			//Add the Custom Field in the Table VOTES_ENTRY_CUSTOM_TABLE
-			$wpdb->insert( 
-				OW_VOTES_ENTRY_CUSTOM_TABLE, 
-				array(
-					'sequence'	=> 0,
-					'question_type' => 'FILE', 
-					'question'      => 'Music Upload URL',
-					'system_name' => 'contestant-ow_music_url',
-					'required'    => 'Y',
-					'admin_only'  => 'Y', 
-					'admin_view'  => 'Y',  
-				), 
-				array( 
-					'%s','%s','%s','%s' ,'%s','%s'
-				) 
-			);
-		}
+		}	
 		
 	}
 		
@@ -258,13 +210,6 @@ if(!class_exists('Ow_Installation_Model')){
 	    static function ow_voting_get_ow_video_url(){
 		    global $wpdb;            
 		    $sql     = "SELECT * FROM " . OW_VOTES_ENTRY_CUSTOM_TABLE . " WHERE system_name = 'contestant-ow_video_url'";
-		    $desc_rs = $wpdb->get_results($sql);    
-		    return $desc_rs;
-	    }
-		
-		static function ow_voting_get_ow_music_url(){
-		    global $wpdb;            
-		    $sql     = "SELECT * FROM " . OW_VOTES_ENTRY_CUSTOM_TABLE . " WHERE system_name = 'contestant-ow_music_url'";
 		    $desc_rs = $wpdb->get_results($sql);    
 		    return $desc_rs;
 	    }

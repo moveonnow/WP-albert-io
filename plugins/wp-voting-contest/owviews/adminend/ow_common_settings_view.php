@@ -26,7 +26,6 @@ if(!function_exists('ow_common_settings_view')){
 	
 
 	<div class="sidebar_ow_vote">
-		<a id="mobile-toggle-menu"><?php _e('Settings Menu') ?><span class="wt-arrow"></span></a>
 		<nav class="ow_settings_menu">
 		    
 			<ul>
@@ -1624,7 +1623,7 @@ if(!function_exists('ow_render_accordion')){
 					    <tr valign="top">
 						<th  scope="row"><label for="votes_readmore_padding_top"><?php _e('Read More Padding Top','voting-contest'); ?> </label></th>
 						<td colspan="2"> 
-						<input type="number"  name="votes_readmore_padding_top" id="votes_readmore_padding_top" value="<?php  echo $option['votes_readmore_padding_top']; ?>" class="votes-font-text"/>
+						<input type="text"  name="votes_readmore_padding_top" id="votes_readmore_padding_top" value="<?php  echo $option['votes_readmore_padding_top']; ?>" class="votes-font-text"/>
 						<span class="votes-font-text-px">px</span>
 						</td>
 					    </tr>
@@ -1632,7 +1631,7 @@ if(!function_exists('ow_render_accordion')){
 					    <tr valign="top">
 						<th  scope="row"><label for="votes_readmore_padding_bottom"><?php _e('Read More Padding Bottom','voting-contest'); ?> </label></th>
 						<td colspan="2"> 
-						<input type="number" name="votes_readmore_padding_bottom" id="votes_readmore_padding_bottom" value="<?php  echo $option['votes_readmore_padding_bottom']; ?>" class="votes-font-text"/>
+						<input type="text" name="votes_readmore_padding_bottom" id="votes_readmore_padding_bottom" value="<?php  echo $option['votes_readmore_padding_bottom']; ?>" class="votes-font-text"/>
 						<span class="votes-font-text-px">px</span>
 						</td>
 					    </tr>
@@ -1640,7 +1639,7 @@ if(!function_exists('ow_render_accordion')){
 					    <tr valign="top">
 						<th  scope="row"><label for="votes_readmore_padding_left"><?php _e('Read More Padding Left','voting-contest'); ?> </label></th>
 						<td colspan="2"> 
-						<input type="number" name="votes_readmore_padding_left" id="votes_readmore_padding_left" value="<?php  echo $option['votes_readmore_padding_left']; ?>" class="votes-font-text"/>
+						<input type="text" name="votes_readmore_padding_left" id="votes_readmore_padding_left" value="<?php  echo $option['votes_readmore_padding_left']; ?>" class="votes-font-text"/>
 						<span class="votes-font-text-px">px</span>
 						</td>
 					    </tr>
@@ -1648,7 +1647,7 @@ if(!function_exists('ow_render_accordion')){
 					    <tr valign="top">
 						<th  scope="row"><label for="votes_readmore_padding_right"><?php _e('Read More Padding Right','voting-contest'); ?> </label></th>
 						<td colspan="2"> 
-						<input type="number" name="votes_readmore_padding_right" id="votes_readmore_padding_right" value="<?php  echo $option['votes_readmore_padding_right']; ?>" class="votes-font-text"/>
+						<input type="text" name="votes_readmore_padding_right" id="votes_readmore_padding_right" value="<?php  echo $option['votes_readmore_padding_right']; ?>" class="votes-font-text"/>
 						<span class="votes-font-text-px">px</span>
 						</td>
 					    </tr> 

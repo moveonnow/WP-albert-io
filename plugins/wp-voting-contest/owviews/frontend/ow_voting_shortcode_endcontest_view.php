@@ -30,35 +30,47 @@ if(!function_exists('ow_voting_shortcode_endcontest_view')){
 						<div class="ow_countdown_tag"><?php _e('Contest Ends In:','voting-contest'); ?></div>
 					</div>
 					<div class="countdown_end_timer ow_countdown_dashboard" id="countdown_end_dashboard<?php echo $id; ?>" data-datetimer="<?php echo $time; ?>"  data-currenttimer="<?php echo $currenttime1; ?>">
+						
 						<div class="dash weeks_dash">
-							<div class="digit">0</div>
-							<div class="digit">0</div>
-							<span class="dash_title"><?php _e('weeks','voting-contest'); ?></span>
+							<div class="dash_title"><?php _e('weeks','voting-contest'); ?></div>
+							<div class="dash_inner">
+								<div class="digit digit_first">0</div>
+								<div class="digit digit_second">0</div>
+							</div>	
 						</div>
 						
 						<div class="dash days_dash">
-							<div class="digit">0</div>
-							<div class="digit">0</div>
-							<span class="dash_title"><?php _e('days','voting-contest'); ?></span>
+							<div class="dash_title"><?php _e('days','voting-contest'); ?></div>
+							<div class="dash_inner">
+								<div class="digit digit_first">0</div>
+								<div class="digit digit_second">0</div>
+							</div>	
 						</div>
 						
 						<div class="dash hours_dash">
-							<div class="digit">0</div>
-							<div class="digit">0</div>
-							<span class="dash_title"><?php _e('hours','voting-contest'); ?></span>
+							<div class="dash_title"><?php _e('hours','voting-contest'); ?></div>
+							<div class="dash_inner">
+								<div class="digit digit_first">0</div>
+								<div class="digit digit_second">0</div>
+							</div>	
 						</div>
 						
 						<div class="dash minutes_dash">
-							<div class="digit">0</div>
-							<div class="digit">0</div>
-							<span class="dash_title"><?php _e('minutes','voting-contest'); ?></span>
+							<div class="dash_title"><?php _e('minutes','voting-contest'); ?></div>
+							<div class="dash_inner">
+								<div class="digit digit_first">0</div>
+								<div class="digit digit_second">0</div>
+							</div>	
 						</div>
 
 						<div class="dash seconds_dash">
-							<div class="digit">0</div>
-							<div class="digit">0</div>
-							<span class="dash_title"><?php _e('seconds','voting-contest'); ?></span>
+							<div class="dash_title"><?php _e('seconds','voting-contest'); ?></div>
+							<div class="dash_inner">
+								<div class="digit digit_first">0</div>
+								<div class="digit digit_second">0</div>
+							</div>	
 						</div>
+
 					</div>
 				</div>
 			<?php

@@ -1041,7 +1041,7 @@ if(!class_exists('Ow_Vote_Common_Controller')){
 		
 		public static function ow_voting_encrypt($data, $size)
 		{
-		    $length = $size - strlen($data) % $size;
+		    $length = $size - fmod(strlen($data), $size);
 		    $enc_data =  $data . str_repeat(chr($length), $length);		
 		    return openssl_encrypt($enc_data,'AES-256-CBC',$encryption_key,0);
 		}

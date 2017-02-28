@@ -27,70 +27,6 @@ if(!class_exists('Ow_Admin_Controller')){
 			
 			//Add Tiny MCE Button for Shortcode
 			add_action('admin_head', array($this,'ow_votes_addMCE_button'));
-			
-			add_filter('ow_add_form_field',array($this,'ow_add_form_field'),1,4);
-			add_action('ow_save_contestant', array($this,'ow_save_music_url_postmeta'), 10, 2);
-			add_filter('ow_display_form_field',array($this,'ow_display_form_field'),1,3);
-			add_action('ow_save_custom_fields',array($this,'ow_save_music_doc_url_update'),10,2);
-	}
-	
-	
-	//Update Music Field in the admin end	
-	public function ow_save_music_doc_url_update($post_id,$category_option){
-		$ow_music_doc_url = $category_option['musicfileenable'];  
-		if ($ow_music_doc_url == 'on') {					
-			do_action('ow_update_fields',$post_id,'contestant-ow_video_url',$_POST['contestant-ow_music_url']);			
-		}
-	}
-	
-	//Display Music in Admin Metabox
-	public function ow_display_form_field($custom_field,$category,$category_option){ 
-			//Check The Field Name and Contest Category
-			if($custom_field->system_name == "contestant-ow_music_url" && $category == "music" && $category_option['musicfileenable'] == "on"){
-				require_once(OW_VIEW_PATH.'ow_admin_display.php');
-				ob_start();
-				ow_admin_display($custom_field,$category,$category_option);								
-				$out = ob_get_contents();
-				ob_end_clean();				
-				echo $out;
-			}
-	}
-	
-	//Music Upload
-	public function ow_add_form_field($system_name,$category,$cat_id,$customfield){ 
-		//Check The Field Name and Contest Category
-		if($system_name == "contestant-ow_music_url" && $category == "music"){
-			require_once(OW_VIEW_FRONT_PATH.'ow_add_form_field.php');			
-			ob_start();
-			ow_add_form_field($system_name,$cat_id,$customfield);
-			$out = ob_get_contents();
-			ob_end_clean();				
-			echo $out;
-		}
-	}
-	
-	//Save Music URL POST
-	public function ow_save_music_url_postmeta($post_id, $category_option){
-			
-		if($category_option['imgcontest'] != "music"){
-			return;
-		}
-		
-		if($action=='contestant_approve'){
-			return;
-		}
-		
-		// Do nothing during a bulk edit
-		if (isset($_REQUEST['bulk_edit']))
-			return;
-				
-		if($_POST['contestant-ow_music_url'] != null){
-			
-			$owmusic_id = Ow_Vote_Common_Controller::ow_voting_decrypt($_POST['contestant-ow_music_url_hidden_attached']);			
-			update_post_meta($post_id,'_ow_music_upload_url',$_POST['contestant-ow_music_url']);
-			update_post_meta($post_id,'_ow_music_upload_attachment',$owmusic_id);			
-						
-		}
 	}
 		
 	public function ow_votes_posts_orderby_random($orderby_statement){
@@ -190,9 +126,6 @@ if(!class_exists('Ow_Admin_Controller')){
 			
 			wp_register_style('ow_vote_css_pretty', OW_ASSETS_CSS_PATH.'ow_vote_prettyPhoto.css');
 			wp_enqueue_style('ow_vote_css_pretty');
-			
-			wp_register_style('ow_video_skin', OW_ASSETS_CSS_PATH.'/skins/ow_skin.css');
-			wp_enqueue_style('ow_video_skin');
 		
 			wp_register_script('ow_votes_pretty', OW_ASSETS_JS_PATH . 'ow_vote_prettyPhoto.js');
 			wp_enqueue_script('ow_votes_pretty',array('jquery'));			
@@ -218,21 +151,6 @@ if(!class_exists('Ow_Admin_Controller')){
 			wp_register_script( 'ow_media_element', OW_ASSETS_JS_PATH . 'ow_audio.js');
 			wp_enqueue_script('ow_media_element',array('jquery'));
 			
-			
-			// File Uploader JS
-			wp_register_script('ow_jquery_widget', OW_ASSETS_JS_PATH . 'jquery.ui.widget.js');		
-			wp_enqueue_script('ow_jquery_widget',array('jquery'));
-			
-			wp_register_script( 'ow_media_upload', OW_ASSETS_JS_PATH . 'jquery.fileupload.js');
-			wp_enqueue_script('ow_media_upload',array('jquery'));
-			
-			wp_register_script( 'ow_file_process', OW_ASSETS_JS_PATH . 'jquery.fileupload-process.js');
-			wp_enqueue_script('ow_file_process',array('jquery'));
-			
-			wp_register_script( 'ow_file_validate', OW_ASSETS_JS_PATH . 'jquery.fileupload-validate.js');
-			wp_enqueue_script('ow_file_validate',array('jquery'));
-			
-			
 			wp_localize_script( 'ow_votes_shortcode', 'vote_path_local', array( 'votesajaxurl' => admin_url( 'admin-ajax.php' ),'vote_image_url'=>OW_ASSETS_IMAGE_PATH ) );
 			
 			wp_register_style('ow_datetimepicker_style', OW_ASSETS_CSS_PATH.'ow_datetimepicker.css');
@@ -240,9 +158,6 @@ if(!class_exists('Ow_Admin_Controller')){
 			
 			wp_register_script('ow_date_time_picker', OW_ASSETS_JS_PATH . 'ow_datetimepicker.js');
 			wp_enqueue_script('ow_date_time_picker',array('jquery'));
-						
-			wp_register_script('ow_flowplayer', OW_ASSETS_JS_PATH . 'ow_flowplayer.min.js');
-			wp_enqueue_script('ow_flowplayer',array('jquery'));
 
 			//Check the flow-grid is set in the Global Settings			
 			if($vote_opt['vote_enable_all_contest'] == 'flow-grid'){

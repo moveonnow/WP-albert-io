@@ -100,69 +100,9 @@ if(!class_exists('Ow_Vote_OW_Video')){
 	
 	public function get_ow_embed_video( $url, $align, $aspect, $width = null, $autoplay = 0 )
 	{
-		$video_type = $this->ow_videoType($url); 
-		if($video_type != 'unknown'){			
-			$code = $this->ow_voting_before_video( $align, $aspect, $width );
-			$code .= $this->ow_embed_video( $url, $autoplay );
-			$code .= $this->ow_voting_after_video();			
-		}
-		else{			
-			$code = $this->_return_unknown_videos_before_video( $align, $aspect, $width );
-			$code .= $this->_return_unknown_videos( $url );		
-			$code .= $this->_return_unknown_videos_after_video();		
-		}
-		
-		return $code;
-	}
-	
-	public function ow_videoType($url) {
-		
-		if (strpos($url, 'youtube') > 0) {
-			return 'youtube';
-		} elseif (strpos($url, 'vimeo') > 0) {
-			return 'vimeo';
-		} elseif (strpos($url, 'vine') > 0) {
-			return 'vine';
-		}
-		else {
-			return 'unknown';
-		}
-	}
-	
-	private function _return_unknown_videos_before_video( $align, $aspect, $width = null )
-	{		
-		$code = '<div class="resp-video-' . $align . '"';
-		if (is_singular('contestants')) {			
-			$code .= ' style="width: ' . $width . '"';			
-		} else {
-			if( isset ( $width ) && $width != 100 ){
-				$code .= ' style="max-width: ' . $width . 'px;"';
-			}
-			else{
-				$code .= ' style="width: ' . $width . '%;"';
-			}
-		}
-		$code .= '>';		
-		return $code;
-	}
-	
-	public function _return_unknown_videos($url){
-		ob_start();		
-		?>
-		<div class="flowplayer" data-swf="flowplayer.swf" >
-			<video>         
-			   <source type='video/mp4' src="<?php echo $url; ?>">
-			</video>
-		 </div>
-		<?php
-		$out = ob_get_contents();
-		ob_end_clean();
-		return $out;
-	}
-	
-	private function _return_unknown_videos_after_video()
-	{		
-		$code .= '</div>';
+		$code = $this->ow_voting_before_video( $align, $aspect, $width );
+		$code .= $this->ow_embed_video( $url, $autoplay );
+		$code .= $this->ow_voting_after_video();
 		return $code;
 	}
 	

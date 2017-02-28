@@ -203,7 +203,7 @@ if(!function_exists('ow_voting_single_contestant_view')){
 							    $email_class= "";
 								
 								//Grab Email Address for IP and COOKIE
-								if($vote_grab_email_address == "on" && $vote_tracking_method != 'email_verify' && !is_user_logged_in()){
+								if($vote_grab_email_address == "on" && $vote_tracking_method != 'email_verify'){
 									Ow_Vote_Shortcode_Controller::ow_voting_email_grab();
 									$email_class = "ow_voting_grab"; 
 								}
@@ -412,10 +412,9 @@ if(!function_exists('ow_voting_single_contestant_view')){
 											$ow_video_width_single_cont = $int_value.$vote_single_video_width_value;
 										} else {
 											$ow_video_width_single_cont = '100%';
-										}
-										
+										}										
 										echo do_shortcode('[owvideo width='.$ow_video_width_single_cont.' align=center]'.$field_val['contestant-ow_video_url'].'[/owvideo]');
-										
+										//echo do_shortcode('[owvideo width='.$ow_video_width_single_cont.' align=center]'.get_post_meta($post_id,'contestant-ow_video_url',true).'[/owvideo]');
 										
 								    }
 									
@@ -467,10 +466,10 @@ if(!function_exists('ow_voting_single_contestant_view')){
 						}						
 						if(!empty($custom_fields)){
 						    
-							$k = 0; 
+							$k = 0;
 							//Check for the Admin View to Show the Title
 							foreach($custom_fields as $custom_field){
-							    if($custom_field->admin_view=='Y' && !in_array($custom_field->system_name,array('contestant-desc','contestant-title','contestant-ow_video_url','contestant-ow_video_upload_url','contestant-ow_music_url'))){
+							    if($custom_field->admin_view=='Y' && !in_array($custom_field->system_name,array('contestant-desc','contestant-title','contestant-ow_video_url'))){
 								$k++;
 							    }
 							}
@@ -488,7 +487,7 @@ if(!function_exists('ow_voting_single_contestant_view')){
 								<h2><?php _e('Additional Information','voting-contest'); ?></h2>
 							<?php
 							foreach($custom_fields as $custom_field){
-							if($custom_field->system_name != 'contestant-desc' && $custom_field->system_name != 'contestant-title' && $custom_field->system_name != 'contestant-ow_video_url' && $custom_field->system_name != 'contestant-ow_music_url'){
+								if($custom_field->system_name != 'contestant-desc' && $custom_field->system_name != 'contestant-title' && $custom_field->system_name != 'contestant-ow_video_url'){
 								 								
 							if($custom_field->admin_view=='Y'){
 								if($field_val[$custom_field->system_name] != ''){

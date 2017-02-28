@@ -416,7 +416,7 @@ if(!function_exists('ow_voting_nocategory_form_view')){
 		switch($action_url){			    
 			    case 'contestrules':
 				    $contest_id = base64_decode($_GET['contest_id']);
-				    if($contest_id==$id){
+				    if($contest_id==$id){        
 					    $html_out = do_shortcode('[rulescontestants id='.$id.']');
 					    wp_reset_postdata();
 					    echo $html_out."</div>";

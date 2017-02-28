@@ -22,7 +22,7 @@ if(!function_exists('ow_vote_user_custom_field_list_view')){
 
 	<div class="wrap">
 	    
-	    <h2><?php echo _e('Manage Registration Custom Fields','voting-contest'); ?>
+	    <h2><?php echo _e('Manage User Registration Fields','voting-contest'); ?>
 		<?php
 		if (!isset($_REQUEST['action']) || ($_REQUEST['action'] != 'edit_question' && $_REQUEST['action'] != 'new_question')) {
 			echo '<a href="admin.php?page=fieldregistration&useraction=new_customfield" class="button add-new-h2 new_contestant_add" style="margin-left: 20px;">' . __('Add New Field','voting-contest') . '</a>';

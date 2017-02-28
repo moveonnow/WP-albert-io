@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Voting Contest
-Version: 3.3.6
+Version: 3.3.5
 Description: Quickly and seamlessly integrate an online contest with voting into your Wordpress 4.0+ website. You can start many types of online contests such as photo, video, audio, names with very little effort.
 Author: Ohio Web Technologies
 Author URI: http://www.ohiowebtech.com
@@ -26,7 +26,7 @@ error_reporting(0);
 
 global $wpdb;
 
-define('OW_VOTE_VERSION','3.3.6');
+define('OW_VOTE_VERSION','3.3.5');
 /*********** File path constants **********/
 define('OW_VOTES_ABSPATH', dirname(__FILE__) . '/');
 define('OW_VOTES_PATH', plugin_dir_url(__FILE__));
@@ -37,7 +37,6 @@ define('OW_WP_VOTING_SL_STORE_API_URL', 'http://plugins.ohiowebtech.com');
 define('OW_WP_VOTING_SL_PRODUCT_NAME', 'WordPress Voting Photo Contest Plugin');
 load_plugin_textdomain( 'voting-contest', '', dirname( plugin_basename( __FILE__ ) ) . '/assets/lang' );
 require_once('configuration/config.php');
-require_once('configuration/helper.php');
 register_activation_hook(__FILE__,'ow_votes_activation_init');
 register_deactivation_hook(__FILE__,'ow_votes_deactivation_init');
 
@@ -46,7 +45,7 @@ if(!function_exists('votes_version_updater_admin')){
     {
             $wp_voting_sl_license_key = trim(get_option('wp_voting_software_license_key'));
             $wp_voting_ = new Ow_Vote_Updater(OW_WP_VOTING_SL_STORE_API_URL, __FILE__, array(
-                            'version' => '3.3.6',
+                            'version' => '3.3.5',
                             'license' => $wp_voting_sl_license_key,
                             'item_name' => OW_WP_VOTING_SL_PRODUCT_NAME,
                             'author' => 'Ohio Web Technologies'

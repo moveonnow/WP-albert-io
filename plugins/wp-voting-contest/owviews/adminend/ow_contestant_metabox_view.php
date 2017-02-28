@@ -33,28 +33,33 @@ if(!function_exists('ow_votes_custom_field_metabox_view')){
                 $field_val = maybe_unserialize($field_values);
                 
 	    }
+		
+		if(!empty($custom_fields)){
+			foreach($custom_fields as $custom_field){
 				
-		if(!empty($custom_fields)){ 
-			foreach($custom_fields as $custom_field){				
-				if($custom_field->system_name != "contestant-desc" && $custom_field->system_name != "contestant-title" ){				    
+				if($custom_field->system_name != "contestant-desc" && $custom_field->system_name != "contestant-title" ){
+				    
 				    if($custom_field->system_name == 'contestant-ow_video_url'){
 						//Show Video Url for Video Contest Only 
 						if($imgcontest != 'video' && $imgcontest != 'music'){
 							 continue;
 						}								   
-				    }											
-				?>
-				
-				<?php apply_filters('ow_display_form_field',$custom_field,$imgcontest,$category_options);	 ?>
-				
-				<?php
-					//Video Extension plugin - Do not show to any category in admin end
-					if($custom_field->system_name == 'contestant-ow_video_upload_url' || $custom_field->system_name == 'contestant-ow_music_url'){						  
-						continue;						   								   
-					}					
+				    }					
+					
+					
+								
 				?>
 				
 				<div class="ow_contestants-row">
+					
+					<?php apply_filters('ow_display_form_field',$custom_field,$imgcontest,$category_options);	 ?>
+					
+					<?php
+						//Video Extension plugin - Do not show to any category in admin end
+						if($custom_field->system_name == 'contestant-ow_video_upload_url'){						  
+							continue;						   								   
+						}					
+					?>
 					
 					<div class="ow_contestants-label">
 						<label>

@@ -204,10 +204,6 @@ if(!class_exists('Ow_Vote_Save_Controller')){
 							//in email_verify $ip is the email address
 							$email_always = $ip;
 						}
-						if(is_user_logged_in()){
-							$current_user = wp_get_current_user();	
-							$email_always = $current_user->user_email;
-						}
 					}
 					else{
 						if($option['vote_tracking_method'] == 'email_verify'){
@@ -221,13 +217,7 @@ if(!class_exists('Ow_Vote_Save_Controller')){
 							}
 						}
 						else{
-							if(is_user_logged_in()){
-								$current_user = wp_get_current_user();	
-								$email_always = $current_user->user_email;
-							}
-							else{
-								$email_always = 0;
-							}
+							$email_always = 0;
 						}
 					}
 					
